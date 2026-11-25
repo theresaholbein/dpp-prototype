@@ -12,7 +12,7 @@ Ein durchgängiger, klickbarer Weg in der vertrauten Code-Gaia-Oberfläche:
 
 **Produkt wählen → Pass aus Moduldaten befüllen → Lücken sehen → veröffentlichen → QR scannen → JSON per API abrufen → Registry-Datei exportieren.**
 
-Zweck: zeigen, wie schnell das mit KI geht, und dem Engineering eine wiederverwendbare Vorlage für Datenmodell (EN 18223), API (EN 18222) und UI geben.
+Zweck: zeigen, wie schnell das mit KI geht.
 
 Leitidee aus dem Konzept: Der DPP ist eine **Ausgabeschicht auf dem gemeinsamen Produktkern**, kein neues Datensilo. Er liest aus Produkte, PCF, Lieferkette und PPWR, friert Daten als versionierten Pass ein und liefert ihn aus. Der Feldkatalog ist **pro Produktgruppe konfigurierbar und versioniert** (Templates), nicht hart codiert.
 
@@ -43,7 +43,6 @@ Leitidee aus dem Konzept: Der DPP ist eine **Ausgabeschicht auf dem gemeinsamen 
 - **Keine Datenbank.** Demo-Daten als typisierte Dateien unter `data/`. Änderungen im Editor speichert der Browser (localStorage). „Veröffentlichen“ wird im Browser simuliert; öffentliche Seite und API liefern die veröffentlichten Versionen aus den Demo-Daten.
 - Repo: GitHub `dpp-prototype` (privat) · Hosting: Vercel, Push auf `main` = Production, Branches = Preview
 - Vercel Deployment Protection (Vercel Authentication) ist an. Folge: Die öffentliche Seite ist im Demo nur mit Vercel-Login oder Shareable Link erreichbar.
-- 🟡 Hinweis fürs Engineering: Die echte App nutzt laut Design System Vue mit Volt-Komponenten. Der Prototyp ist React; er ist Vorlage für Struktur und Verhalten, nicht für direkten Code-Transfer.
 
 ## §4 App-Shell nach der echten App
 
@@ -73,7 +72,7 @@ Vorlage: Screenshots in `docs/reference/` (ng.codegaia.io, 24.11.2026). Details 
 
 ## §5 Datenmodell
 
-Alles unter `lib/dpp/` (Typen) und `data/` (Demo-Daten). Eine Lese-Funktion pro Quelle (`getProductData`, `getPcfData`, `getSupplierData`, `getPpwrData`), damit Engineering später echte Module anschließen kann.
+Alles unter `lib/dpp/` (Typen) und `data/` (Demo-Daten). Eine Lese-Funktion pro Quelle (`getProductData`, `getPcfData`, `getSupplierData`, `getPpwrData`).
 
 **DPP-Template** (versionierte Feldkataloge, als JSON-Dateien)
 - ID, Version, Produktgruppe, Status (Entwurf/verbindlich), Feldliste mit Datentyp, Pflicht, Zugriffsebene, `dictionaryReference`, Quell-Mapping — EN 18223 §4.3 🟢; JRC Kap. 8 🟡
@@ -161,7 +160,7 @@ Route Handler unter `/api/v1/dpps`. JSON Pflicht; XML/JSON-LD optional per Conte
 | ReadDPPVersionByIdAndDate | `GET /api/v1/dpps/{dppId}?date=YYYY-MM-DD` | empfohlen 🟢 |
 | ReadDataElement | `GET /api/v1/dpps/{dppId}/elements/{path}` | empfohlen 🟢 |
 
-🟡 Die genauen Pfade und Parameter sind ein Vorschlag; Engineering prüft sie gegen EN 18222 §4/§8. Create/Update/Delete sind nicht im MVP.
+🟡 Die genauen Pfade und Parameter sind ein Vorschlag und noch gegen EN 18222 §4/§8 zu prüfen. Create/Update/Delete sind nicht im MVP.
 
 ## §8 Registry-Export
 
@@ -202,7 +201,7 @@ Keine weiteren Variablen im MVP.
 5. **Veröffentlichen, Versionen, QR, öffentliche Seite** – §6.4, §6.6, §6.7 (Do Nachmittag)
 6. **Lese-API** – §7 (Fr Vormittag)
 7. **Registry-Export** – §8, §6.5 (Fr Vormittag)
-8. **Feinschliff, Review, Übergabe-Doku** – §9, README, `docs/ARCHITECTURE.md`, `docs/OPEN-QUESTIONS.md` (Fr)
+8. **Feinschliff, Review** – §9, README, offene Fragen in `docs/OPEN-QUESTIONS.md` (Fr)
 
 **Abnahme** (aus dem Konzept):
 1. JSON eines Passes enthält alle Kopf-Felder aus EN 18223 Tab. 1.

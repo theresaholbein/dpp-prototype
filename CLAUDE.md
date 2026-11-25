@@ -4,7 +4,7 @@ Lies diese Datei und SPEC.md zu Beginn jeder Session.
 
 ## Worum es geht
 
-Ein klickbarer MVP des Digitalen Produktpasses (DPP) für die Code-Gaia-App. Er soll zeigen, wie schnell so etwas mit KI entsteht, und dem Engineering-Team als Vorlage dienen (Datenmodell, API, UI). Gebaut wird **nur das DPP-Feature**. Alles Weitere steht in SPEC.md.
+Ein klickbarer MVP des Digitalen Produktpasses (DPP) für die Code-Gaia-App. Er soll zeigen, wie schnell so etwas mit KI entsteht. Er ist eine Demo, keine Vorlage für die Umsetzung. Gebaut wird **nur das DPP-Feature**. Alles Weitere steht in SPEC.md.
 
 ## Regeln
 

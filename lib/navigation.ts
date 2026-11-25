@@ -21,7 +21,7 @@ import {
  * Vorlage: docs/reference/ (Screenshots, NAVIGATION.md) und SPEC.md §4.
  *
  * Pfade: wo bekannt die echten Pfade der App. Mit `pathKnown: false` markierte Pfade
- * sind Vorschläge (SPEC §4 🔴) und mit Engineering abzustimmen.
+ * sind Vorschläge (SPEC §4 🔴), nicht belegt.
  */
 
 export type HeaderTab = {

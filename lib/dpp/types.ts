@@ -1,7 +1,7 @@
 /**
  * Datenmodell des Digitalen Produktpasses (SPEC §5).
  *
- * Codes sind englisch (für API und Engineering), deutsche Labels stehen in labels.ts.
+ * Codes sind englisch (wie in API und Normen), deutsche Labels stehen in labels.ts.
  * Normbezüge: EN 18223 (Datenmodell), EN 18219 (Granularität), EN 18222 (Registry).
  */
 
