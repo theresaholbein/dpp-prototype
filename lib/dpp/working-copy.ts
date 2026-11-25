@@ -13,6 +13,11 @@ export function editsKey(passId: string): string {
   return `${STORAGE_PREFIX}edits:${passId}`;
 }
 
+/** Im Browser veröffentlichte Versionen eines Passes (nur angehängt, nie verändert). */
+export function versionsKey(passId: string): string {
+  return `${STORAGE_PREFIX}published:${passId}`;
+}
+
 /** elementId → neuer Wert (null = Wert entfernt). */
 export type Edits = Record<string, { value: ElementValue | null }>;
 

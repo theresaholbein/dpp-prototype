@@ -7,7 +7,7 @@ import { sortBySection, type FieldMeta } from "@/lib/dpp/editor";
 import { SECTION_LABEL, SECTION_ORDER } from "@/lib/dpp/labels";
 import { computeReadiness } from "@/lib/dpp/readiness";
 import type { DataElement, ElementValue, Passport, SectionId } from "@/lib/dpp/types";
-import { saveEdit, useEdits } from "@/lib/dpp/use-working-copy";
+import { saveEdit, useEdits, usePassState } from "@/lib/dpp/use-working-copy";
 import { applyEdits, editability } from "@/lib/dpp/working-copy";
 import { FieldList } from "./FieldList";
 import { OriginCard } from "./OriginCard";
@@ -30,7 +30,8 @@ export function PassEditor({ pass, meta }: { pass: Passport; meta: Record<string
 
   const elements = useMemo(() => sortBySection(applyEdits(pass.workingCopy.elements, edits), meta), [pass, edits, meta]);
   const readiness = useMemo(() => computeReadiness(elements, pass.templateIds), [elements, pass.templateIds]);
-  const hasVersion = pass.publishedVersions.length > 0;
+  // Granularität ist nach der ersten Veröffentlichung fest, auch wenn sie nur im Browser veröffentlicht wurde.
+  const hasVersion = usePassState(pass).versions.length > 0;
   const original = useMemo(() => new Map(pass.workingCopy.elements.map((e) => [e.elementId, e.value])), [pass]);
 
   const sectionParam = params.get("section");

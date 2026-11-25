@@ -1,4 +1,4 @@
-import type { AccessLevel, DataElement, ElementState, ElementValue, Granularity, SourceRef } from "../../lib/dpp/types.ts";
+import type { AccessLevel, DataElement, ElementState, ElementValue, Granularity, Language, SourceRef } from "../../lib/dpp/types.ts";
 
 /** Kurzschreibweisen für Demo-Daten. Keine Fachlogik. */
 
@@ -10,6 +10,15 @@ export const sv = (value: string): ElementValue => ({ kind: "SingleValued", valu
 export const mv = (...values: string[]): ElementValue => ({ kind: "MultiValued", values });
 export const ml = (de: string, en?: string): ElementValue => ({ kind: "MultiLanguage", values: en ? { de, en } : { de } });
 export const file = (label: string, href: string): ElementValue => ({ kind: "RelatedResource", label, href });
+
+/** Dokument mit Titel je Sprache, MIME-Typ und Dokumentsprachen. */
+export const doc = (
+  label: string,
+  href: string,
+  title: { de: string; en?: string },
+  mimeType = "application/pdf",
+  languages: Language[] = ["de"],
+): ElementValue => ({ kind: "RelatedResource", label, href, title, mimeType, languages });
 
 export function el(
   templateId: string,

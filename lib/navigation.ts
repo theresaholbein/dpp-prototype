@@ -124,8 +124,8 @@ export function passportTabs(id: string): HeaderTab[] {
   return [
     { label: "Pass-Editor", href: base },
     { label: "Rollen-Vorschau", href: `${base}/preview` },
-    { label: "Veröffentlichen" },
-    { label: "Versionen" },
+    { label: "Veröffentlichen", href: `${base}/publish` },
+    { label: "Versionen", href: `${base}/versions` },
   ];
 }
 

@@ -1,9 +1,10 @@
 import { PASS_SUMMARIES } from "../../data/passports/summaries.ts";
 import { PRODUCT_GROUPS } from "../../data/product-groups.ts";
 import { getPassports } from "./passports.ts";
-import { computeReadiness } from "./readiness.ts";
-import { deriveWorkflowStatus, hasUnpublishedChanges, latestVersion } from "./status.ts";
-import type { Granularity, ProductGroup, WorkflowStatus } from "./types.ts";
+import { passState, type PassState } from "./pass-state.ts";
+import { deriveWorkflowStatus } from "./status.ts";
+import { GRANULARITY_KEY, granularityFromValue } from "./working-copy.ts";
+import type { Granularity, Passport, ProductGroup, WorkflowStatus } from "./types.ts";
 
 /** Eine Zeile der Portfolio-Tabelle (SPEC §6.1). Serialisierbar für Client-Komponenten. */
 export type PortfolioRow = {
@@ -24,23 +25,26 @@ export type PortfolioRow = {
 
 export type PortfolioKpis = { total: number; published: number; registered: number; avgReadiness: number };
 
+/** Zeile eines vollen Passes aus seinem Stand (Demo-Daten, im Browser ergänzt um Änderungen und Versionen). */
+export function rowFromState(p: Passport, state: PassState): PortfolioRow {
+  const last = state.latest;
+  return {
+    id: p.id,
+    productName: p.productName,
+    sku: p.sku,
+    productGroup: p.productGroup,
+    templateLabel: PRODUCT_GROUPS[p.productGroup].templateLabel,
+    granularity: granularityFromValue(state.elements.find((e) => e.key === GRANULARITY_KEY)?.value ?? null) ?? p.granularity,
+    readinessPercent: state.readiness.percent,
+    status: state.status,
+    latestVersion: last ? { version: last.version, publishedAt: last.publishedAt } : null,
+    changesSince: last && state.hasUnpublishedChanges ? last.version : null,
+    canOpen: true,
+  };
+}
+
 export function getPortfolioRows(): PortfolioRow[] {
-  const full = getPassports().map((p): PortfolioRow => {
-    const last = latestVersion(p);
-    return {
-      id: p.id,
-      productName: p.productName,
-      sku: p.sku,
-      productGroup: p.productGroup,
-      templateLabel: PRODUCT_GROUPS[p.productGroup].templateLabel,
-      granularity: p.granularity,
-      readinessPercent: computeReadiness(p.workingCopy.elements, p.templateIds).percent,
-      status: deriveWorkflowStatus({ versionCount: p.publishedVersions.length, registered: !!p.registration }),
-      latestVersion: last ? { version: last.version, publishedAt: last.publishedAt } : null,
-      changesSince: last && hasUnpublishedChanges(p) ? last.version : null,
-      canOpen: true,
-    };
-  });
+  const full = getPassports().map((p) => rowFromState(p, passState(p, {}, [])));
 
   const summaries = PASS_SUMMARIES.map(
     (s): PortfolioRow => ({

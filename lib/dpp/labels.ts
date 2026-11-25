@@ -22,6 +22,17 @@ export const SECTION_LABEL: Record<SectionId, string> = {
   instructions: "Anleitungen",
 };
 
+/** Englische Abschnittsnamen für die öffentliche Passseite. */
+export const SECTION_LABEL_EN: Record<SectionId, string> = {
+  identity: "Identity",
+  actors: "Actors",
+  material: "Material",
+  substances: "Substances",
+  environment: "Environment",
+  conformity: "Conformity",
+  instructions: "Instructions",
+};
+
 export const SECTION_ORDER: SectionId[] = ["identity", "actors", "material", "substances", "environment", "conformity", "instructions"];
 
 export const ACCESS_LABEL: Record<AccessLevel, string> = {
@@ -78,6 +89,12 @@ export const GRANULARITY_LABEL: Record<Granularity, string> = {
   model: "Modell",
   batch: "Charge",
   item: "Einzelstück",
+};
+
+export const GRANULARITY_LABEL_EN: Record<Granularity, string> = {
+  model: "Model",
+  batch: "Batch",
+  item: "Item",
 };
 
 export const STATUS_LABEL: Record<WorkflowStatus, string> = {

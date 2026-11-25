@@ -1,5 +1,5 @@
 import type { Passport, SourceRef } from "../../lib/dpp/types.ts";
-import { H, VOL, el, file, mv, sv } from "./helpers.ts";
+import { H, VOL, el, file, ml, mv, sv } from "./helpers.ts";
 
 /**
  * Demo-Pass Sessel (fiktiv). Möbel: nur „ESPR horizontal“ plus freiwillige Angaben,
@@ -30,7 +30,7 @@ export const SESSEL: Passport = {
       el(H, "facility", null, "missing", "authorized", SUPPLIER),
       el(VOL, "mainMaterials", mv("Eiche massiv", "PU-Schaum", "Polyester-Bezug"), "present", "public", PRODUCTS),
       el(VOL, "recycledContent", null, "missing", "public", PRODUCTS),
-      el(H, "substancesOfConcern", sv("Keine über 0,1 %"), "present", "public", SUPPLIER),
+      el(H, "substancesOfConcern", ml("Keine über 0,1 %", "None above 0.1 %"), "present", "public", SUPPLIER),
       el(H, "substanceList", null, "missing", "authority", SUPPLIER),
       el(VOL, "pcf", sv("86 kg CO2e je Stück (ISO 14067)"), "outdated", "public", PCF),
       el(H, "conformityDocs", null, "missing", "authority", MANUAL),

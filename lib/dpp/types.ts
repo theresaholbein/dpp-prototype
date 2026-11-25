@@ -43,6 +43,8 @@ export type TemplateField = {
   /** Stabiler Schlüssel innerhalb des Templates, z. B. "upi". */
   key: string;
   label: string;
+  /** Label für die englische öffentliche Seite. */
+  labelEn: string;
   section: SectionId;
   elementType: ElementType;
   requirement: Requirement;
@@ -75,7 +77,18 @@ export type ElementValue =
   | { kind: "SingleValued"; value: string }
   | { kind: "MultiValued"; values: string[] }
   | { kind: "MultiLanguage"; values: Partial<Record<Language, string>> }
-  | { kind: "RelatedResource"; label: string; href: string }
+  | {
+      kind: "RelatedResource";
+      /** Rückfall-Bezeichnung (Dateiname), wenn kein Titel in der gewählten Sprache vorliegt. */
+      label: string;
+      href: string;
+      /** Titel je Sprache, z. B. „Pflegeanleitung“ / „Care guide“. */
+      title?: Partial<Record<Language, string>>;
+      /** z. B. "application/pdf" */
+      mimeType?: string;
+      /** Sprachen des Dokuments selbst. */
+      languages?: Language[];
+    }
   | { kind: "Collection"; elements: DataElement[] };
 
 /** Herkunft des Werts: Modul, Datensatz, Version (SPEC §5). */
@@ -134,6 +147,8 @@ export type Passport = {
   id: string;
   dppId: string;
   productName: string;
+  /** Produktname auf der englischen öffentlichen Seite; fehlt er, gilt der deutsche. */
+  productNameEn?: string;
   sku: string;
   productGroup: ProductGroup;
   granularity: Granularity;

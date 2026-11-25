@@ -1,8 +1,8 @@
 import type { Passport, SourceRef } from "../../lib/dpp/types.ts";
-import { H, TEX, VOL, el, file, ml, patch, sv } from "./helpers.ts";
+import { H, TEX, VOL, doc, el, file, ml, patch, sv } from "./helpers.ts";
 
 /**
- * Demo-Pass T-Shirt (fiktiv). Werte, Quellen, Zustände und Zugriffsebenen aus FIELDS im Mockup,
+ * Demo-Pass T-Shirt (fiktiv). EN-Texte sind fiktive Demo-Übersetzungen. Werte, Quellen, Zustände und Zugriffsebenen aus FIELDS im Mockup,
  * Versionen aus VERS, Unterschied Arbeitsstand ↔ v3 aus DIFF (SPEC §5).
  */
 
@@ -11,6 +11,8 @@ const PCF: SourceRef = { module: "pcf", dataset: "PCF TS-1042 Charge L2026-114",
 const PCF_OLD: SourceRef = { module: "pcf", dataset: "PCF TS-1042 Charge L2026-114", version: "Berechnung 2" };
 const SUPPLIER: SourceRef = { module: "supplier", dataset: "Lieferantenfragebogen Muster Textil GmbH", version: "03/2026" };
 const MANUAL: SourceRef = { module: "manual" };
+/** Pflegeanleitung: Produktdateien im Modul Produkte (Entscheidung 25.11.2026). */
+const PRODUCT_FILES: SourceRef = { module: "products", dataset: "Produktdateien TS-1042", version: "2026-10-20" };
 
 /** Vererbung Modell → Charge: Demo-Vorschlag, nicht belegt (SPEC „Offen aus dem Bau“). */
 const MODEL = "model" as const;
@@ -23,17 +25,26 @@ const WORKING = [
   el(H, "manufacturer", sv("Muster Textil GmbH"), "present", "public", SUPPLIER, MODEL),
   el(H, "operatorId", null, "missing", "public", SUPPLIER),
   el(H, "facility", sv("Werk 2, Musterstadt"), "present", "authorized", SUPPLIER),
-  el(TEX, "fibreComposition", sv("100 % Baumwolle (Bio)"), "present", "public", PRODUCTS, MODEL),
+  el(TEX, "fibreComposition", ml("100 % Baumwolle (Bio)", "100 % cotton (organic)"), "present", "public", PRODUCTS, MODEL),
   el(TEX, "fibreOrigin", null, "missing", "public", SUPPLIER),
   el(TEX, "recycledContent", sv("0 %"), "outdated", "public", PRODUCTS),
-  el(H, "substancesOfConcern", sv("Keine über 0,1 % (Erklärung 03/2026)"), "outdated", "public", SUPPLIER),
+  el(H, "substancesOfConcern", ml("Keine über 0,1 % (Erklärung 03/2026)", "None above 0.1 % (declaration 03/2026)"), "outdated", "public", SUPPLIER),
   el(H, "substanceList", file("TS-1042_Stoffe.pdf", "https://files.muster-textil.example/TS-1042_Stoffe.pdf"), "present", "authority", SUPPLIER),
   el(TEX, "pcf", sv("4,1 kg CO2e je Stück (ISO 14067)"), "present", "public", PCF),
   el(VOL, "waterUse", null, "missing", "authorized", MANUAL),
   el(H, "conformityDocs", null, "missing", "authority", MANUAL),
   el(H, "technicalDocs", file("TS-1042_TD.pdf", "https://files.muster-textil.example/TS-1042_TD.pdf"), "present", "authority", MANUAL),
-  el(TEX, "careInstructions", ml("30 °C Feinwäsche, nicht trocknergeeignet"), "present", "public", MANUAL, MODEL),
+  el(TEX, "careInstructions", ml("30 °C Feinwäsche, nicht trocknergeeignet", "30 °C delicate wash, do not tumble dry"), "present", "public", MANUAL, MODEL),
   el(TEX, "repairInstructions", null, "missing", "authorized", MANUAL),
+  // Freiwillig, öffentlich; in allen Versionen enthalten (Entscheidung 25.11.2026). Platzhalter-PDF, fiktiv.
+  el(
+    VOL,
+    "careGuide",
+    doc("pflegeanleitung-ts-1042.pdf", "/demo/pflegeanleitung-ts-1042.pdf", { de: "Pflegeanleitung", en: "Care guide" }, "application/pdf", ["de", "en"]),
+    "present",
+    "public",
+    PRODUCT_FILES,
+  ),
 ];
 
 const missing = { value: null, state: "missing" as const };
@@ -55,6 +66,7 @@ export const TSHIRT: Passport = {
   id: "tshirt",
   dppId: "ts1042-l2026-114",
   productName: "Basic T-Shirt Bio-Baumwolle",
+  productNameEn: "Basic T-shirt organic cotton",
   sku: "TS-1042",
   productGroup: "textile",
   granularity: "batch",

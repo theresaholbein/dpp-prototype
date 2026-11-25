@@ -6,10 +6,11 @@
   "productGroup": "all",
   "status": "draft",
   "fields": [
-    { "key": "waterUse", "label": "Wasserverbrauch Herstellung", "section": "environment", "elementType": "SingleValued", "requirement": "voluntary", "accessLevel": "authorized", "sourceMapping": { "module": "manual" } },
-    { "key": "mainMaterials", "label": "Hauptmaterialien", "section": "material", "elementType": "MultiValued", "requirement": "voluntary", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "mainMaterials" } },
-    { "key": "recycledContent", "label": "Recyclinganteil", "section": "material", "elementType": "SingleValued", "requirement": "voluntary", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "recycledContent" } },
-    { "key": "pcf", "label": "Product Carbon Footprint", "section": "environment", "elementType": "SingleValued", "requirement": "voluntary", "accessLevel": "public", "sourceMapping": { "module": "pcf", "attribute": "pcfPerUnit" } },
-    { "key": "disassembly", "label": "Demontagehinweise", "section": "instructions", "elementType": "RelatedResource", "requirement": "voluntary", "accessLevel": "authorized", "sourceMapping": { "module": "manual" } }
+    { "key": "waterUse", "label": "Wasserverbrauch Herstellung", "labelEn": "Water use in production", "section": "environment", "elementType": "SingleValued", "requirement": "voluntary", "accessLevel": "authorized", "sourceMapping": { "module": "manual" } },
+    { "key": "mainMaterials", "label": "Hauptmaterialien", "labelEn": "Main materials", "section": "material", "elementType": "MultiValued", "requirement": "voluntary", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "mainMaterials" } },
+    { "key": "recycledContent", "label": "Recyclinganteil", "labelEn": "Recycled content", "section": "material", "elementType": "SingleValued", "requirement": "voluntary", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "recycledContent" } },
+    { "key": "pcf", "label": "Product Carbon Footprint", "labelEn": "Product carbon footprint", "section": "environment", "elementType": "SingleValued", "requirement": "voluntary", "accessLevel": "public", "sourceMapping": { "module": "pcf", "attribute": "pcfPerUnit" } },
+    { "key": "disassembly", "label": "Demontagehinweise", "labelEn": "Disassembly instructions", "section": "instructions", "elementType": "RelatedResource", "requirement": "voluntary", "accessLevel": "authorized", "sourceMapping": { "module": "manual" } },
+    { "key": "careGuide", "label": "Pflegeanleitung", "labelEn": "Care guide", "section": "instructions", "elementType": "RelatedResource", "requirement": "voluntary", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "productFiles" } }
   ]
 }

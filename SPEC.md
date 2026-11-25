@@ -240,10 +240,21 @@ Keine weiteren Variablen im MVP.
 ## Offen aus dem Bau (Schritt 4, 25.11.2026)
 
 - 🟡 „In Quelle öffnen“ führt bei PCF-Feldern auf „Produkte“ (Entscheidung 25.11.2026). In welchem Modul der PCF in der echten App liegt, ist offen.
-- Granularität ist nur ohne veröffentlichte Version bearbeitbar (Entscheidung 25.11.2026). Der Kopf (`granularity`) liest noch `pass.granularity`; ob eine geänderte Ebene beim Sessel in den Kopf übernommen wird, klären wir in Schritt 5.
-- Die Portfolio-Prozente berücksichtigen Browser-Änderungen erst ab Schritt 5; im Editor sind sie schon live.
+- Granularität ist nur ohne veröffentlichte Version bearbeitbar (Entscheidung 25.11.2026). Seit Schritt 5 leitet der Kopf `granularity` aus dem Feld „Granularität“ der Version ab (§5).
 - Für den Bestätigungsdialog gibt es kein Overlay-Token; der Hintergrund nutzt das Browser-Standard-Backdrop.
 - Abweichungen vom Design System wegen Kontrast: Warn-Meldung mit dunklem Text (yellow-110 nur fürs Icon), Feldfehler in red-110 statt pink.
+
+## Entscheidungen und offene Punkte aus Schritt 5 (25.11.2026)
+
+- QR-Bibliothek: `qrcode` (MIT). Das SVG bauen wir aus der Modulmatrix selbst (Größe in mm, Ruhezone 4 Module, optionaler Rahmen). Farben der Druckdatei aus `tokens.css` (surface-950 auf surface-0).
+- Öffentliche Seite, QR-Code und API zeigen nur die Demo-Versionen (§3). Im Browser veröffentlichte Versionen erscheinen in Portfolio, Editor, Veröffentlichen und Versionen, mit Hinweis „Nur in diesem Browser“. Erfolgsmeldung nennt das ausdrücklich.
+- Sprachen: Als `MultiLanguage` nur sprachabhängiger Text (Faserzusammensetzung, Pflegehinweise, Reparatur-/Demontagehinweise, Besorgniserregende Stoffe, Dokumenttitel). Kennungen, Zahlen, Einheiten, Firmennamen und URLs bleiben einsprachig. Fehlt EN, zeigt die Seite den deutschen Wert mit `lang="de"`. Alle EN-Texte der Demo-Daten sind fiktive Demo-Übersetzungen. Template-Felder haben `labelEn`; der Produktname hat optional `productNameEn`.
+- Neues freiwilliges Feld „Pflegeanleitung“ (Template „Freiwillige Angaben (Code Gaia)“, öffentlich, Quelle Modul Produkte, Datensatz „Produktdateien“), beim T-Shirt in allen Versionen. Platzhalter-PDF unter `public/demo/`. `RelatedResource` hat optional `title` (de/en), `mimeType`, `languages`.
+- Kernangaben der öffentlichen Seite je Produktgruppe in `data/product-groups.ts` (Auswahl nach Mockup, keine Rechtsvorgabe).
+- Neue Versionen tragen als Akteur die Demo-Nutzerin („Erika Muster“). Versionsnotiz ist optional.
+- 🔴 IEC 61406: Maße und Kennzeichnung des Rahmens sind nicht belegt. Umgesetzt ist nur ein Rahmen von 1 Modul Stärke außerhalb der Ruhezone. Druckgröße = Kantenlänge der ganzen Datei inklusive Ruhezone und Rahmen; ob sich die Druckgröße auf das Symbol ohne Ruhezone beziehen soll, ist offen.
+- 🟡 „Zugang für Fachleute“ zeigt nur einen Hinweis; Anmeldung und Rollen nach EN 18239 kommen später (§12).
+- Die Demo-Versionen nennen „T. Holbein“ als Akteur (aus dem Mockup). Offen: durch eine fiktive Person ersetzen (CLAUDE.md Regel 6)?
 
 ## Offen aus dem Design-Review (Schritt 4, 25.11.2026)
 
