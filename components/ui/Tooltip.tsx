@@ -17,13 +17,15 @@ type Props = {
   label: ReactNode;
   placement?: Placement;
   describe?: boolean;
+  /** Längere Texte umbrechen statt einzeilig (Design Bible K). */
+  wrap?: boolean;
   className?: string;
   children: ReactNode;
 };
 
 const OFFSET = 8;
 
-export function Tooltip({ label, placement = "bottom", describe = false, className = "", children }: Props) {
+export function Tooltip({ label, placement = "bottom", describe = false, wrap = false, className = "", children }: Props) {
   const id = useId();
   const ref = useRef<HTMLSpanElement>(null);
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
@@ -64,7 +66,7 @@ export function Tooltip({ label, placement = "bottom", describe = false, classNa
         aria-hidden={describe ? undefined : true}
         hidden={!pos}
         style={pos ? { top: pos.top, left: pos.left } : undefined}
-        className={`pointer-events-none fixed z-50 whitespace-nowrap rounded-ui-sm bg-surface-950 px-2 py-1 text-xs text-surface-0 ${shift}`}
+        className={`pointer-events-none fixed z-50 ${wrap ? "w-max max-w-80 whitespace-normal" : "whitespace-nowrap"} rounded-ui-sm bg-surface-950 px-2 py-1 text-xs text-surface-0 ${shift}`}
       >
         {label}
       </span>

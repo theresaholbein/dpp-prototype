@@ -42,6 +42,8 @@ export type NavItem = {
   tone?: "green";
   /** Tabs der Kopfzeile auf der Platzhalterseite. Standard: ein Tab mit dem Modulnamen. */
   tabs?: HeaderTab[];
+  /** Ausgebautes Modul mit eigener Seite: keine Platzhalterroute. */
+  hasOwnPage?: boolean;
 };
 
 export type NavSection = {
@@ -85,7 +87,7 @@ export const NAVIGATION: NavSection[] = [
       { label: "Klima & ESG", href: "/measure/activities", icon: CreditCard, pathKnown: true },
       // Im Screenshot gesperrt; im Prototyp offen, weil der DPP darauf aufbaut (SPEC §4).
       { label: "Produkte", href: "/products", icon: Package, pathKnown: false },
-      { label: "Produktpässe", href: "/products/passports", icon: QrCode, pathKnown: false },
+      { label: "Produktpässe", href: "/products/passports", icon: QrCode, pathKnown: false, hasOwnPage: true },
     ],
   },
   {
@@ -109,6 +111,12 @@ export const NAVIGATION: NavSection[] = [
 ];
 
 export const NAV_ITEMS: NavItem[] = NAVIGATION.flatMap((s) => s.items);
+
+/** Kopfzeilen-Tabs des Moduls Produktpässe (SPEC §6.1). Registry & Export folgt in Schritt 7. */
+export const PASSPORT_TABS: HeaderTab[] = [
+  { label: "Portfolio", href: "/products/passports" },
+  { label: "Registry & Export" },
+];
 
 export function findNavItem(pathname: string): NavItem | undefined {
   return NAV_ITEMS.find((i) => i.href === pathname);

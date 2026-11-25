@@ -8,7 +8,7 @@ type Props = { params: Promise<{ slug: string[] }> };
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return NAV_ITEMS.map((item) => ({ slug: item.href.split("/").filter(Boolean) }));
+  return NAV_ITEMS.filter((item) => !item.hasOwnPage).map((item) => ({ slug: item.href.split("/").filter(Boolean) }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -20,6 +20,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ModulePlaceholder({ params }: Props) {
   const { slug } = await params;
   const item = findNavItem(`/${slug.join("/")}`);
-  if (!item) notFound();
+  if (!item || item.hasOwnPage) notFound();
   return <PlaceholderPage item={item} />;
 }

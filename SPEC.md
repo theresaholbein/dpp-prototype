@@ -83,6 +83,23 @@ Alles unter `lib/dpp/` (Typen) und `data/` (Demo-Daten). Eine Lese-Funktion pro 
   - Möbel: nur „ESPR horizontal“. Banner: „Möbel: Delegierter Rechtsakt erst für 2028 geplant. Template nutzt nur horizontale Angaben – nicht rechtsverbindlich.“
 - Template-ID landet im Kopf-Feld `contentSpecificationIds`.
 
+**Feldzuordnung der Templates** — 🟡 Entscheidung Product Compliance vom 25.11.2026, Legal-Prüfung offen. Jedes Feld trägt `templateId`, damit der Editor die Herkunft aus dem Template zeigt. Jedes Template-Feld hat `requirement`: `required` | `optional` | `voluntary`. Ein Produktgruppen-Template darf ein Feld des horizontalen Kerns per Override auf `required` hochstufen.
+
+| Template | required | optional |
+|---|---|---|
+| „ESPR horizontal“ (Basis nach Anhang III und Art. 7(5); welche Felder Pflicht sind, legt der jeweilige Rechtsakt fest) | Eindeutige Produktkennung (UPI), Granularität, Wirtschaftsakteur (Hersteller), Kennung Wirtschaftsakteur, Besorgniserregende Stoffe, Stoffliste mit Konzentrationen | GTIN/Artikelnummer, Produktionsstätte, Zolltarifnummer (HS/TARIC, neu), Konformitätsdokumente, Technische Dokumentation |
+| „Textil Bekleidung (JRC-Entwurf 05/2026)“, Zusatz | Faserzusammensetzung, Recyclinganteil, Product Carbon Footprint (Hinweis: JRC sieht PEFCR vor, Demo-Wert nach ISO 14067), Pflegehinweise; Overrides auf required: GTIN/Artikelnummer, Produktionsstätte | Herkunftsland der Faser (Hinweis „in Prüfung“), Reparatur- und Demontagehinweise (freiwillig) |
+| „Freiwillige Angaben (Code Gaia)“, nicht rechtlich begründet, alle `voluntary` | – | T-Shirt: Wasserverbrauch Herstellung. Sessel: Hauptmaterialien, Recyclinganteil, Product Carbon Footprint, Demontagehinweise |
+
+„Freiwillige Angaben“ ist keine Inhaltsspezifikation und landet nicht in `contentSpecificationIds`.
+
+**Vollständigkeit (Pflichtfelder)**
+- Vollständigkeit = erfüllte Pflichtfelder / alle Pflichtfelder der aktiven Templates, gerundet auf ganze Prozent.
+- Erfüllt = Wert vorhanden. Zustand „veraltet“ zählt als erfüllt, wird aber als Warnung gezählt und gezeigt. Optionale und freiwillige Felder zählen nicht.
+- Eine Funktion `computeReadiness` in `lib/dpp`; Portfolio, Editor und Veröffentlichen nutzen nur diese.
+- Demo-Werte (als Test abgelegt): T-Shirt 11/12 = 92 %, Sessel 4/6 = 67 %.
+- Hinweistext: „Pflicht laut Template, nicht rechtsverbindlich. Verbindliche Pflichtfelder legt erst der delegierte Rechtsakt fest.“
+
 **Produktpass (Kopf)** — EN 18223 Tab. 1 🟢
 `digitalProductPassportId` (URL), `uniqueProductIdentifier`, `granularity` (model/batch/item), `dppSchemaVersion`, `dppStatus` (active/inactive/archived/invalid), `lastUpdated`, `economicOperatorId`, `facilityId` (optional), `contentSpecificationIds`
 
@@ -92,34 +109,42 @@ Alles unter `lib/dpp/` (Typen) und `data/` (Demo-Daten). Eine Lese-Funktion pro 
 **Pass-Version** — EN 18223 §4.2, EN 18221 §4.2 🟢
 Snapshot aller Datenelemente, Zeitstempel, Akteur, geänderte Felder, Vorgängerversion, Versionsnotiz. Veröffentlichte Versionen sind unveränderlich.
 
+**Arbeitsstand, Versionen und Status** (Entscheidung 25.11.2026)
+- Ein Pass hat `publishedVersions` (unveränderliche Snapshots), `workingCopy` (aktueller Arbeitsstand, editierbar, nie öffentlich) und optional `registration` (Registrierungs-ID, Datum).
+- `dppStatus` (EN 18223) gehört zur veröffentlichten Version, nicht zum Arbeitsstand.
+- Der Workflow-Status der UI wird abgeleitet, nicht gespeichert: „Entwurf“ = keine veröffentlichte Version; „Veröffentlicht“ = mindestens eine Version, nicht registriert; „Registriert“ = veröffentlicht und `registration` vorhanden. Zusätzlich `hasUnpublishedChanges` = Arbeitsstand weicht von der letzten Version ab.
+- Öffentliche Passseite, API und QR liefern immer die letzte veröffentlichte Version, nie den Arbeitsstand. Ein Pass ohne Version ist öffentlich nicht erreichbar (404).
+- Kopf-Felder `uniqueProductIdentifier`, `granularity` und `economicOperatorId` werden aus den Datenelementen der Version abgeleitet; `digitalProductPassportId` aus `NEXT_PUBLIC_BASE_URL` und der DPP-ID.
+
 **Registry-Eintrag** — EN 18222 Tab. 11 🟢
 Produkt-ID, DPP-ID, Akteur-ID, Back-up-Akteur-ID, API-Endpunkt, Registrierungs-ID (gemockt), Status
 
 **Granularität** — EN 18219 §4.3/§4.4/§5.2 🟢; Vererbung JRC §9.1 🟡: Ebene bleibt nach Inverkehrbringen fix. Vererbung Einzelstück ← Charge ← Modell.
 
 **Demo-Daten** (alle fiktiv)
-- **T-Shirt** „Basic T-Shirt Bio-Baumwolle“, TS-1042, Textil, Ebene Charge, Templates horizontal + Textil-Entwurf. Zeigt Vererbung Modell → Charge.
-- **Sessel** „Sessel Lino“, SE-220, Möbel, Ebene Modell, nur horizontal. Zeigt, dass Möbel-Inhalte fehlen.
-- Drei weitere Pässe nur als Tabellenzeilen (Hoodie veröffentlicht, Esstisch Entwurf, Jeans registriert).
-- Feldwerte, Quellen, Zustände und Zugriffsebenen wie im Mockup `docs/prototype/Main.dc.html` (Konstante `FIELDS`), Versionsverlauf wie `VERS`.
+- **T-Shirt** „Basic T-Shirt Bio-Baumwolle“, TS-1042, Textil, Ebene Charge, Templates horizontal + Textil-Entwurf. Zeigt Vererbung Modell → Charge. v1 (28.10.2026), v2 (05.11.2026), v3 (18.11.2026) veröffentlicht, nicht registriert. Der Arbeitsstand enthält die drei Änderungen aus `DIFF` im Mockup (`hasUnpublishedChanges`); „Veröffentlichen“ erzeugt v4.
+- **Sessel** „Sessel Lino“, SE-220, Möbel, Ebene Modell, nur horizontal. Zeigt, dass Möbel-Inhalte fehlen. Keine veröffentlichte Version, Status „Entwurf“; „Veröffentlichen“ erzeugt v1. Ergänzt: „Kennung Wirtschaftsakteur“ und „Stoffliste mit Konzentrationen“, beide „fehlt“, Quelle Lieferant.
+- Drei weitere Pässe nur als Tabellenzeilen (Hoodie veröffentlicht v5, Esstisch Entwurf, Jeans registriert v7).
+- Feldwerte, Quellen, Zustände und Zugriffsebenen wie im Mockup `docs/prototype/Main.dc.html` (Konstante `FIELDS`), Versionsverlauf wie `VERS`. Label „Besorgniserregende Stoffe“ statt „SVHC“.
 - Fehlende Felder zeigen die Pflegestelle („In Produkte ergänzen“, „Bei Lieferant anfragen“). Der DPP schreibt keine Fachdaten zurück.
 
 ## §6 Seiten
 
 Vorlage für Inhalte und Abläufe: `docs/prototype/`. Vorlage für Aussehen: `docs/reference/` und die Design Bible.
 
-1. **Portfolio** (`/products/passports`): Kennzahlen, Filter nach Produktgruppe, Tabelle mit Produkt (führendes Element), Template, Ebene, Vollständigkeit in %, Status (Entwurf, Veröffentlicht, Registriert) als AppTag, letzte Version. Ein primärer Button „Pass anlegen“ (ohne Funktion). Tabs der Kopfzeile: Portfolio · Registry & Export.
+1. **Portfolio** (`/products/passports`): Kennzahlen (Kennzahl „Veröffentlicht“ zählt Pässe mit mindestens einer Version), Filter nach Produktgruppe, Tabelle mit Produkt (führendes Element), Template, Ebene, „Pflichtfelder“ in % mit Balken und Tooltip (Hinweistext §5), Status (Entwurf, Veröffentlicht, Registriert, abgeleitet nach §5) als AppTag, bei `hasUnpublishedChanges` in derselben Zelle dezent „Änderungen seit vN“, „Letzte Version“ mit Datum bzw. „–“ bei Entwürfen. Ein primärer Button „Pass anlegen“ (ohne Funktion). Tabs der Kopfzeile: Portfolio · Registry & Export.
 2. **Pass-Editor** (`/products/passports/[id]`): Aufbau nach dem Editor-Muster der echten App (Screenshot `04-berichterstattung-editor.png`):
-   - oben Statuskarte mit „vorhanden / fehlt / veraltet“ und Vollständigkeit in %
+   - oben Statuskarte: „11 von 12 Pflichtfeldern“, darunter „2 veraltet“ und „1 fehlt“, mit Hinweistext §5
+   - je Feld zusätzlich der Tag „Pflicht“ bzw. „Optional“ neben Quelle, Zustand und Zugriffsebene
    - links ausblendbarer Baum der Template-Abschnitte
    - Mitte das gewählte Feld bzw. die Feldliste mit Wert, Tags für Quelle, Zustand und Zugriffsebene
    - rechts Panel mit Herkunft (Modul, Datensatz, Version), Zugriffsebene und Aktion („In Quelle öffnen“ führt auf die Platzhalterseite des Moduls; manuelle Felder sind bearbeitbar)
    - unten „Vorheriges Feld“ links, „Nächstes Feld“ rechts
    - Banner je Produktgruppe (§5). Kopfzeile: „Zurück“ und Tabs Pass-Editor · Rollen-Vorschau · Veröffentlichen · Versionen.
 3. **Rollen-Vorschau**: Umschalter Verbraucher · Reparatur/Recycling · Marktüberwachung; zeigt die öffentliche Ansicht gefiltert nach Zugriffsebene, mit Anzahl ausgeblendeter Felder.
-4. **Veröffentlichen**: Änderungen zur letzten Version, Versionsnotiz, primärer Button „Als vN veröffentlichen“. Danach QR-Code: Druckgröße (20/30/40 mm), Fehlerkorrektur L/M/Q/H, optionaler IEC-61406-Rahmen, Download als SVG. QR nach ISO/IEC 18004, 4 Module Ruhezone (EN 18220 §5, §6 🟢). Inhalt: URL der öffentlichen Passseite.
-5. **Registry & Export**: Tabelle mit Auswahl (max. 100), Format JSON oder XML, „Upload-Datei erzeugen“, Ergebnis je Zeile (aufgenommen, Fehler „nicht veröffentlicht“, bereits registriert mit Mock-ID).
-6. **Versionen**: Zeitleiste mit Version, Datum, Akteur, geänderten Feldern, Notiz; „Stand am Datum“ zeigt die gültige Version.
+4. **Veröffentlichen**: Änderungen des Arbeitsstands zur letzten Version, Versionsnotiz, primärer Button „Als vN veröffentlichen“. Ohne Änderungen ist der Button deaktiviert, mit Hinweis „Keine Änderungen seit vN“. Fehlende Pflichtfelder erscheinen als Warnung; Veröffentlichen bleibt möglich (Prototyp). Danach QR-Code: Druckgröße (20/30/40 mm), Fehlerkorrektur L/M/Q/H, optionaler IEC-61406-Rahmen, Download als SVG. QR nach ISO/IEC 18004, 4 Module Ruhezone (EN 18220 §5, §6 🟢). Inhalt: URL der öffentlichen Passseite.
+5. **Registry & Export**: Tabelle mit Auswahl (max. 100), Format JSON oder XML, „Upload-Datei erzeugen“, Ergebnis je Zeile (aufgenommen, Fehler „nicht veröffentlicht“ bei Status „Entwurf“, bereits registriert mit Mock-ID). In die Datei kommt die letzte veröffentlichte Version (T-Shirt mit v3); offene Änderungen nicht mitnehmen, aber einen Hinweis zeigen.
+6. **Versionen**: Zeitleiste mit Version, Datum, Akteur, geänderten Feldern, Notiz; „Stand am Datum“ sucht nur in den veröffentlichten Versionen. Ohne Version Leerzustand „Noch nicht veröffentlicht“.
 7. **Öffentliche Passseite** (`/p/[dppId]`, ohne App-Shell, mobil zuerst): Produktname groß zuerst (internes Feedback, Konzept), Kurzfakten, aufklappbare Abschnitte, Sprachumschalter DE/EN, Dokumente, Button „Zugang für Fachleute“, Fußzeile mit DPP-ID, Version, Stand, verantwortlichem Akteur. Nur Felder „Öffentlich“. HTML barrierefrei (EN 301 549 laut EN 18216 🟢).
 
 **Zustände** (Design Bible J): Leerzustand und Ladezustand für jede Liste, Fehler allgemein als Toast, Feldfehler inline.
@@ -204,3 +229,10 @@ Keine weiteren Variablen im MVP.
 - 🟡 Registry-API für System-zu-System-Registrierung nicht beschrieben
 - 🟡 ESPR-Artikel nicht direkt auf EUR-Lex gelesen; Legal bestätigt bindende Auslegungen
 - 🟡 Aufbewahrungsdauer mindestens 10 Jahre laut JRC, nicht gegen ESPR-Text geprüft
+
+## Offen aus dem Bau (Schritt 2, 25.11.2026)
+
+- 🔴 `economicOperatorId` ist Pflicht-Kopffeld (EN 18223 Tab. 1), die „Kennung Wirtschaftsakteur“ fehlt aber in beiden Demo-Pässen. Umsetzung vorerst: Kopf-Feld `null`, „Veröffentlichen“ soll warnen. Entscheidung offen: so lassen oder Demo-Kennung ergänzen.
+- 🔴 PCF-Wert des T-Shirts in v1/v2 („4,8 kg CO2e je Stück“) ist erfunden, damit die v3-Notiz „PCF neu berechnet“ einen Vorgänger hat.
+- 🔴 Welche T-Shirt-Felder vom Modell geerbt werden (GTIN/Artikelnummer, Zolltarifnummer, Wirtschaftsakteur, Faserzusammensetzung, Pflegehinweise), ist ein Demo-Vorschlag, nicht belegt.
+- 🟡 Feldzuordnung und Pflicht-Einstufung der Templates (§5) sind eine interne Entscheidung, nicht von Legal geprüft.

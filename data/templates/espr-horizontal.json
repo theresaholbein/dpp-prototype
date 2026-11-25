@@ -1,0 +1,21 @@
+{
+  "id": "cg-espr-horizontal",
+  "version": "0.1.0",
+  "name": "ESPR horizontal",
+  "kind": "horizontal",
+  "productGroup": "all",
+  "status": "draft",
+  "fields": [
+    { "key": "upi", "label": "Eindeutige Produktkennung (UPI)", "section": "identity", "elementType": "SingleValued", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "uniqueProductIdentifier" } },
+    { "key": "granularity", "label": "Granularität", "section": "identity", "elementType": "SingleValued", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "manual" } },
+    { "key": "gtin", "label": "GTIN / Artikelnummer", "section": "identity", "elementType": "SingleValued", "requirement": "optional", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "gtin" } },
+    { "key": "hsCode", "label": "Zolltarifnummer (HS/TARIC)", "section": "identity", "elementType": "SingleValued", "requirement": "optional", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "hsCode" } },
+    { "key": "manufacturer", "label": "Wirtschaftsakteur (Hersteller)", "section": "actors", "elementType": "SingleValued", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "supplier", "attribute": "manufacturerName" } },
+    { "key": "operatorId", "label": "Kennung Wirtschaftsakteur", "section": "actors", "elementType": "SingleValued", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "supplier", "attribute": "operatorId" } },
+    { "key": "facility", "label": "Produktionsstätte", "section": "actors", "elementType": "SingleValued", "requirement": "optional", "accessLevel": "authorized", "sourceMapping": { "module": "supplier", "attribute": "facility" } },
+    { "key": "substancesOfConcern", "label": "Besorgniserregende Stoffe", "section": "substances", "elementType": "SingleValued", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "supplier", "attribute": "substancesOfConcern" } },
+    { "key": "substanceList", "label": "Stoffliste mit Konzentrationen", "section": "substances", "elementType": "RelatedResource", "requirement": "required", "accessLevel": "authority", "sourceMapping": { "module": "supplier", "attribute": "substanceList" } },
+    { "key": "conformityDocs", "label": "Konformitätsdokumente", "section": "conformity", "elementType": "RelatedResource", "requirement": "optional", "accessLevel": "authority", "sourceMapping": { "module": "manual" } },
+    { "key": "technicalDocs", "label": "Technische Dokumentation", "section": "conformity", "elementType": "RelatedResource", "requirement": "optional", "accessLevel": "authority", "sourceMapping": { "module": "manual" } }
+  ]
+}

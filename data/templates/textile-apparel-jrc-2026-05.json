@@ -1,0 +1,20 @@
+{
+  "id": "cg-textile-apparel-jrc-2026-05",
+  "version": "0.1.0",
+  "name": "Textil Bekleidung (JRC-Entwurf 05/2026)",
+  "kind": "product-group",
+  "productGroup": "textile",
+  "status": "draft",
+  "fields": [
+    { "key": "fibreComposition", "label": "Faserzusammensetzung", "section": "material", "elementType": "SingleValued", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "fibreComposition" } },
+    { "key": "fibreOrigin", "label": "Herkunftsland der Faser", "section": "material", "elementType": "SingleValued", "requirement": "optional", "accessLevel": "public", "sourceMapping": { "module": "supplier", "attribute": "fibreOrigin" }, "hint": "In Prüfung" },
+    { "key": "recycledContent", "label": "Recyclinganteil", "section": "material", "elementType": "SingleValued", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "recycledContent" } },
+    { "key": "pcf", "label": "Product Carbon Footprint", "section": "environment", "elementType": "SingleValued", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "pcf", "attribute": "pcfPerUnit" }, "hint": "JRC sieht PEFCR vor, Demo-Wert nach ISO 14067" },
+    { "key": "careInstructions", "label": "Pflegehinweise", "section": "instructions", "elementType": "MultiLanguage", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "manual" } },
+    { "key": "repairInstructions", "label": "Reparatur- und Demontagehinweise", "section": "instructions", "elementType": "RelatedResource", "requirement": "optional", "accessLevel": "authorized", "sourceMapping": { "module": "manual" }, "hint": "Freiwillig" }
+  ],
+  "overrides": [
+    { "templateId": "cg-espr-horizontal", "key": "gtin", "requirement": "required" },
+    { "templateId": "cg-espr-horizontal", "key": "facility", "requirement": "required" }
+  ]
+}
