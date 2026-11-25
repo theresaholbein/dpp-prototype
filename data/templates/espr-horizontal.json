@@ -7,7 +7,7 @@
   "status": "draft",
   "fields": [
     { "key": "upi", "label": "Eindeutige Produktkennung (UPI)", "labelEn": "Unique product identifier (UPI)", "section": "identity", "elementType": "SingleValued", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "uniqueProductIdentifier" } },
-    { "key": "granularity", "label": "Granularität", "labelEn": "Granularity", "section": "identity", "elementType": "SingleValued", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "manual" } },
+    { "key": "granularity", "label": "Granularität", "labelEn": "Granularity", "section": "identity", "elementType": "MultiLanguage", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "manual" } },
     { "key": "gtin", "label": "GTIN / Artikelnummer", "labelEn": "GTIN / item number", "section": "identity", "elementType": "SingleValued", "requirement": "optional", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "gtin" } },
     { "key": "hsCode", "label": "Zolltarifnummer (HS/TARIC)", "labelEn": "Customs tariff number (HS/TARIC)", "section": "identity", "elementType": "SingleValued", "requirement": "optional", "accessLevel": "public", "sourceMapping": { "module": "products", "attribute": "hsCode" } },
     { "key": "manufacturer", "label": "Wirtschaftsakteur (Hersteller)", "labelEn": "Economic operator (manufacturer)", "section": "actors", "elementType": "SingleValued", "requirement": "required", "accessLevel": "public", "sourceMapping": { "module": "supplier", "attribute": "manufacturerName" } },

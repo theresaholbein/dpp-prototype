@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { AppButton } from "@/components/ui/AppButton";
 import { AppField, AppInput, AppSelect } from "@/components/ui/AppInput";
-import { GRANULARITY_LABEL } from "@/lib/dpp/labels";
+import { GRANULARITY_LABEL, GRANULARITY_LABEL_EN } from "@/lib/dpp/labels";
 import type { DataElement, ElementType, ElementValue, Granularity } from "@/lib/dpp/types";
 import { GRANULARITY_KEY } from "@/lib/dpp/working-copy";
 
@@ -46,6 +46,13 @@ function fromDraft(type: ElementType, d: Draft): ElementValue | null {
   }
 }
 
+/** Granularität aus der Auswahl: deutscher und englischer Text (MultiLanguage, öffentliche Seite DE/EN). */
+function granularityValue(label: string): ElementValue | null {
+  const code = (Object.entries(GRANULARITY_LABEL) as [Granularity, string][]).find(([, l]) => l === label)?.[0];
+  if (!label) return null;
+  return { kind: "MultiLanguage", values: code ? { de: label, en: GRANULARITY_LABEL_EN[code] } : { de: label } };
+}
+
 function validate(type: ElementType, d: Draft): Partial<Record<keyof Draft, string>> {
   if (type !== "RelatedResource") return {};
   const a = d.a.trim();
@@ -86,7 +93,7 @@ export function FieldEditForm({
     const found = validate(type, draft);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
-    onSave(fromDraft(type, draft));
+    onSave(isGranularity ? granularityValue(draft.a) : fromDraft(type, draft));
   };
 
   const cancel = () => {

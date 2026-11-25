@@ -23,7 +23,7 @@ export const SESSEL: Passport = {
     updatedAt: "2026-11-12T16:20:00+01:00",
     elements: [
       el(H, "upi", sv("https://id.muster-moebel.example/01/04098765000021"), "present", "public", PRODUCTS),
-      el(H, "granularity", sv("Modell"), "present", "public", MANUAL),
+      el(H, "granularity", ml("Modell", "Model"), "present", "public", MANUAL),
       el(H, "hsCode", null, "missing", "public", PRODUCTS),
       el(H, "manufacturer", sv("Muster Möbelwerk GmbH"), "present", "public", SUPPLIER),
       el(H, "operatorId", null, "missing", "public", SUPPLIER),
@@ -32,7 +32,7 @@ export const SESSEL: Passport = {
       el(VOL, "recycledContent", null, "missing", "public", PRODUCTS),
       el(H, "substancesOfConcern", ml("Keine über 0,1 %", "None above 0.1 %"), "present", "public", SUPPLIER),
       el(H, "substanceList", null, "missing", "authority", SUPPLIER),
-      el(VOL, "pcf", sv("86 kg CO2e je Stück (ISO 14067)"), "outdated", "public", PCF),
+      el(VOL, "pcf", ml("86 kg CO2e je Stück (ISO 14067)", "86 kg CO2e per item (ISO 14067)"), "outdated", "public", PCF),
       el(H, "conformityDocs", null, "missing", "authority", MANUAL),
       el(VOL, "disassembly", file("SE-220_Demontage.pdf", "https://files.muster-moebel.example/SE-220_Demontage.pdf"), "present", "authorized", MANUAL),
     ],

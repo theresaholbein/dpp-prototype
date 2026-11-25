@@ -61,9 +61,10 @@ export function editability(element: DataElement, hasPublishedVersion: boolean):
   return "editable";
 }
 
-/** Ebene aus dem Wert des Felds „Granularität“, z. B. „Charge (Batch L2026-114)“ → batch. */
+/** Ebene aus dem Wert des Felds „Granularität“, z. B. „Charge (Batch L2026-114)“ → batch. Liest den deutschen Text. */
 export function granularityFromValue(value: ElementValue | null): Granularity | null {
-  if (!value || value.kind !== "SingleValued") return null;
-  const match = (Object.entries(GRANULARITY_LABEL) as [Granularity, string][]).find(([, label]) => value.value.startsWith(label));
+  const text = value?.kind === "SingleValued" ? value.value : value?.kind === "MultiLanguage" ? value.values.de : undefined;
+  if (!text) return null;
+  const match = (Object.entries(GRANULARITY_LABEL) as [Granularity, string][]).find(([, label]) => text.startsWith(label));
   return match ? match[0] : null;
 }

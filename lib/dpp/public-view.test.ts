@@ -50,3 +50,10 @@ test("Sprache und DPP-ID", () => {
   assert.equal(getPassportByDppId("ts1042-l2026-114")?.id, "tshirt");
   assert.equal(getPassportByDppId("se220")?.publishedVersions.length, 0, "Sessel ist öffentlich nicht erreichbar");
 });
+
+test("EN: PCF und Granularität übersetzt (Entscheidung 25.11.2026)", () => {
+  const rows = buildPublicView(tshirt, v3, "en").sections.flatMap((s) => s.rows);
+  assert.deepEqual(rows.find((r) => r.elementId.endsWith("/pcf"))?.value, { text: "4.4 kg CO2e per item", lang: "en" });
+  assert.deepEqual(rows.find((r) => r.elementId.endsWith("/granularity"))?.value, { text: "Batch (L2026-114)", lang: "en" });
+  assert.ok(tshirt.publishedVersions.every((v) => v.actor !== "T. Holbein"));
+});

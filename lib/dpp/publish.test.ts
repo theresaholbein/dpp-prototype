@@ -15,7 +15,7 @@ const NOW = new Date("2026-11-26T10:00:00+01:00");
 
 test("T-Shirt: v4 enthält genau die drei Änderungen aus DIFF, Vorgänger v3", () => {
   const p = pass("tshirt");
-  const v4 = createVersion({ versions: p.publishedVersions, elements: p.workingCopy.elements, note: " PCF und Pflege ", actor: "T. Holbein", now: NOW });
+  const v4 = createVersion({ versions: p.publishedVersions, elements: p.workingCopy.elements, note: " PCF und Pflege ", actor: "Erika Muster", now: NOW });
   assert.equal(v4.version, 4);
   assert.equal(v4.previousVersion, 3);
   assert.equal(v4.note, "PCF und Pflege");
@@ -28,7 +28,7 @@ test("T-Shirt: v4 enthält genau die drei Änderungen aus DIFF, Vorgänger v3", 
 
 test("Nach dem Veröffentlichen: keine offenen Änderungen, erneutes Veröffentlichen nicht möglich (Abnahme 3)", () => {
   const p = pass("tshirt");
-  const v4 = createVersion({ versions: p.publishedVersions, elements: p.workingCopy.elements, note: "", actor: "T. Holbein", now: NOW });
+  const v4 = createVersion({ versions: p.publishedVersions, elements: p.workingCopy.elements, note: "", actor: "Erika Muster", now: NOW });
   const state = passState(p, {}, [v4]);
   assert.equal(state.versions.length, 4);
   assert.equal(state.hasUnpublishedChanges, false);
@@ -50,7 +50,7 @@ test("Sessel: erste Version v1 ohne Vorgänger, alle Felder gelten als neu", () 
   const p = pass("sessel");
   assert.equal(canPublish([], p.workingCopy.elements), true);
   assert.equal(pendingChanges([], p.workingCopy.elements).length, p.workingCopy.elements.length);
-  const v1 = createVersion({ versions: [], elements: p.workingCopy.elements, note: "", actor: "T. Holbein", now: NOW });
+  const v1 = createVersion({ versions: [], elements: p.workingCopy.elements, note: "", actor: "Erika Muster", now: NOW });
   assert.equal(v1.version, 1);
   assert.equal(v1.previousVersion, null);
   assert.deepEqual(v1.changedFields, []);
