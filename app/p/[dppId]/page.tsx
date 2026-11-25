@@ -161,21 +161,22 @@ export default async function PublicPassportPage(props: Props) {
 
       <footer className="border-t border-ui-border-hairline bg-ui-surface">
         <div className="mx-auto flex w-full max-w-xl flex-col gap-1 px-4 py-4 text-sm text-ui-text-muted">
+          {/* Label und Wert fließen als Text: lange Werte brechen in derselben Zeile um, statt als Block unter das Label zu rutschen. */}
           <dl className="flex flex-col gap-1">
-            <div className="flex flex-wrap gap-x-1">
-              <dt>{t.dppId}:</dt>
-              <dd className="break-all">{view.footer.dppId}</dd>
+            <div>
+              <dt className="inline">{t.dppId}: </dt>
+              <dd className="inline break-all">{view.footer.dppId}</dd>
             </div>
-            <div className="flex flex-wrap gap-x-1">
-              <dt>{t.version}:</dt>
-              <dd>
+            <div>
+              <dt className="inline">{t.version}: </dt>
+              <dd className="inline">
                 v{view.footer.version} · {t.updated}: {view.footer.updated}
               </dd>
             </div>
             {view.footer.operator ? (
-              <div className="flex flex-wrap gap-x-1">
-                <dt>{t.operator}:</dt>
-                <dd>
+              <div>
+                <dt className="inline">{t.operator}: </dt>
+                <dd className="inline">
                   {view.footer.operator} · {t.hosted}
                 </dd>
               </div>
