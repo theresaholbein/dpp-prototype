@@ -53,11 +53,8 @@
   --color-ui-text-strong: var(--ui-text-strong);
   --color-ui-text-muted: var(--ui-text-muted);
   --color-ui-text-label: var(--ui-text-label);
-  /* Ränder: Design Bible D verlangt ≥ 3:1 gegen die Nachbarfarbe. --ui-border (surface-300, 1,5:1) und
-     --ui-border-hairline (ca. 1,2:1) aus tokens.css erfüllen das nicht. Bible vor Design System
-     (CLAUDE.md, Entscheidung 25.11.2026): beide zeigen auf surface-500 (4,8:1 auf Weiß, 4,6:1 auf der Seite). */
-  --color-ui-border: var(--product-surface-500);
-  --color-ui-border-hairline: var(--product-surface-500);
+  --color-ui-border: var(--ui-border);
+  --color-ui-border-hairline: var(--ui-border-hairline);
   --color-ui-action: var(--ui-action);
   --color-ui-action-hover: var(--ui-action-hover);
   --color-ui-action-active: var(--ui-action-active);

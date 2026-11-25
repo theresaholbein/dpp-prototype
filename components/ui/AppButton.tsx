@@ -6,7 +6,6 @@ import type { LucideIcon } from "lucide-react";
  * Port von docs/design-system/components/AppButton.jsx.
  * Gleiche Varianten, Modi und Größen; Hover/Active per CSS statt State,
  * damit Tastatur und Maus gleich behandelt werden.
- * Abweichung (Design Bible D, Rand ≥ 3:1): Outlined-Rand primary-500 bzw. surface-500 statt primary-200/surface-200.
  * Mit `href` rendert er einen Link im selben Aussehen (Navigation statt Aktion).
  */
 type Variant = "primary" | "secondary" | "tertiary" | "danger";
@@ -70,7 +69,7 @@ export function AppButton({
 
   let skin: string;
   if (mode === "outlined") {
-    skin = `bg-transparent ${accent(variant)} ${variant === "primary" ? "border-primary-500" : variant === "danger" ? "border-red" : "border-surface-500"}`;
+    skin = `bg-transparent ${accent(variant)} ${variant === "primary" ? "border-primary-200" : "border-surface-200"}`;
   } else if (mode === "text") {
     skin = `bg-transparent border-transparent ${accent(variant)}`;
   } else {

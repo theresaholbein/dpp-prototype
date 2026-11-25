@@ -4,14 +4,14 @@ import { CircleCheckBig, Info, OctagonAlert, TriangleAlert, type LucideIcon } fr
 /**
  * Port von AppMessage aus docs/design-system/components/AppCard.jsx.
  * Abweichungen: Rand statt Outline; Padding p-2 rundum (Design Bible E); Info-Hintergrund primary-50 statt halbtransparentem Wert (nur Tokens);
- * bei „warn“ Rand surface-500 (kein Gelb-Token erreicht 3:1), dunkler Text und nur das Icon in yellow-110, weil yellow-110 auf yellow-light zu wenig Kontrast für Text hat.
+ * bei „warn“ dunkler Text und nur das Icon in yellow-110, weil yellow-110 auf yellow-light zu wenig Kontrast für Text hat.
  */
 export type MessageSeverity = "info" | "success" | "warn" | "error" | "secondary";
 
 const tones: Record<MessageSeverity, { skin: string; iconColor?: string; icon: LucideIcon }> = {
   info: { skin: "bg-primary-50 border-primary-500 text-primary-600", icon: Info },
   success: { skin: "bg-green-light border-green text-green-dark", icon: CircleCheckBig },
-  warn: { skin: "bg-yellow-light border-surface-500 text-surface-700", iconColor: "text-yellow-110", icon: OctagonAlert },
+  warn: { skin: "bg-yellow-light border-yellow text-surface-700", iconColor: "text-yellow-110", icon: OctagonAlert },
   error: { skin: "bg-red-10 border-red text-red-110", icon: TriangleAlert },
   secondary: { skin: "bg-surface-100 border-surface-500 text-surface-600", icon: Info },
 };
