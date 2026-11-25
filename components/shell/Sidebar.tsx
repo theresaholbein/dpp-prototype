@@ -60,7 +60,7 @@ export function Sidebar({ hasLogo }: { hasLogo: boolean }) {
     >
       <div className={`flex h-(--ui-header-height) shrink-0 items-center px-2 ${collapsed ? "justify-center" : "justify-between"}`}>
         {collapsed ? null : hasLogo ? (
-          <Image src="/logo.svg" alt="Code Gaia" width={120} height={40} className="ml-2 h-10 w-auto" priority />
+          <Image src="/Logo_navy.svg" alt="Code Gaia" width={1790} height={673} className="ml-2 h-10 w-auto" priority />
         ) : (
           <span aria-hidden="true" className="h-10" />
         )}

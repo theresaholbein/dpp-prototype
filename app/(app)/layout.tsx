@@ -4,8 +4,8 @@ import { Sidebar } from "@/components/shell/Sidebar";
 
 /** App-Shell: Sidebar links, rechts Kopfzeile und Inhalt der jeweiligen Seite. */
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  // Logo legt Theresa unter public/logo.svg ab; bis dahin bleibt der Platz leer.
-  const hasLogo = existsSync(path.join(process.cwd(), "public", "logo.svg"));
+  // Navy-Logo auf weißer Sidebar; Logo_off-white.svg ist für dunkle Flächen.
+  const hasLogo = existsSync(path.join(process.cwd(), "public", "Logo_navy.svg"));
 
   return (
     <div className="flex min-h-screen">
