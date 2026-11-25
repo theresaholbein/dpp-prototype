@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ArrowLeft, FileText, GraduationCap, SquareCheckBig, StickyNote } from "lucide-react";
 import type { HeaderTab } from "@/lib/navigation";
 import { AppButton } from "@/components/ui/AppButton";
@@ -20,13 +19,7 @@ export function AppHeader({ tabs, tabsLabel, backHref }: Props) {
     <header className="sticky top-0 z-10 flex h-(--ui-header-height) shrink-0 items-center justify-between gap-4 border-b border-ui-border-hairline bg-ui-surface px-4">
       <div className="flex min-w-0 items-center gap-4">
         {backHref ? (
-          <Link
-            href={backHref}
-            className="inline-flex shrink-0 items-center gap-2 rounded-ui-sm bg-gray-btn px-3 py-2 font-medium text-gray-dark transition-colors duration-(--ui-duration) hover:text-blue"
-          >
-            <ArrowLeft size={20} aria-hidden="true" />
-            Zurück
-          </Link>
+          <AppButton href={backHref} variant="tertiary" icon={ArrowLeft} label="Zurück" />
         ) : null}
         <HeaderTabs tabs={tabs} label={tabsLabel} />
       </div>

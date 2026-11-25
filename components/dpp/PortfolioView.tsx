@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AppButton } from "@/components/ui/AppButton";
 import { ResetDemoButton } from "@/components/dpp/ResetDemoButton";
 import { AppTag } from "@/components/ui/AppTag";
+import { ProgressBar } from "@/components/ui/ProgressBar";
 import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import { Tooltip } from "@/components/ui/Tooltip";
 import { formatDate } from "@/lib/dpp/format";
@@ -96,9 +97,7 @@ function Row({ row }: { row: PortfolioRow }) {
         <Tooltip label={READINESS_HINT} describe wrap>
           <span tabIndex={0} className="flex items-center gap-2 rounded-ui-sm text-ui-text">
             <span className="w-12 whitespace-nowrap text-right tabular-nums">{row.readinessPercent} %</span>
-            <span className="h-2 w-24 overflow-hidden rounded-full bg-surface-200" aria-hidden="true">
-              <span className="block h-full rounded-full bg-primary-500" style={{ width: `${row.readinessPercent}%` }} />
-            </span>
+            <ProgressBar percent={row.readinessPercent} className="w-24" />
           </span>
         </Tooltip>
       </td>

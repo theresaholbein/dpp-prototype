@@ -12,7 +12,7 @@ export function HeaderTabs({ tabs, label }: { tabs: HeaderTab[]; label: string }
   const pathname = usePathname();
 
   return (
-    <nav aria-label={label} className="flex gap-1 rounded-ui-lg border border-ui-border p-1">
+    <nav aria-label={label} className="flex min-w-0 gap-1 overflow-x-auto rounded-ui-lg border border-ui-border p-1">
       {tabs.map((tab) => {
         const active = tab.active ?? tab.href === pathname;
         const cls = `whitespace-nowrap rounded-ui-sm border px-3 py-1.5 text-base font-medium leading-tight transition-colors duration-(--ui-duration) ${

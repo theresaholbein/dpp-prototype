@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 
@@ -5,6 +6,7 @@ import type { LucideIcon } from "lucide-react";
  * Port von docs/design-system/components/AppButton.jsx.
  * Gleiche Varianten, Modi und Größen; Hover/Active per CSS statt State,
  * damit Tastatur und Maus gleich behandelt werden.
+ * Mit `href` rendert er einen Link im selben Aussehen (Navigation statt Aktion).
  */
 type Variant = "primary" | "secondary" | "tertiary" | "danger";
 type Mode = "filled" | "outlined" | "text";
@@ -42,6 +44,8 @@ export type AppButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "chil
   iconRight?: boolean;
   rounded?: boolean;
   fluid?: boolean;
+  /** Ziel für Navigation; dann <a> statt <button>. */
+  href?: string;
 };
 
 export function AppButton({
@@ -56,6 +60,7 @@ export function AppButton({
   fluid = false,
   className = "",
   type = "button",
+  href,
   ...rest
 }: AppButtonProps) {
   const content = label ?? children;
@@ -74,15 +79,26 @@ export function AppButton({
   const shape = iconOnly ? "size-10 p-0" : `${sizes[size]} gap-2`;
   const radius = rounded ? "rounded-full" : "rounded-ui-sm";
 
-  return (
-    <button
-      type={type}
-      className={`relative inline-flex shrink-0 cursor-pointer select-none items-center justify-center overflow-hidden border font-medium transition-colors duration-(--ui-duration) disabled:cursor-not-allowed disabled:opacity-60 ${shape} ${radius} ${skin} ${fluid ? "w-full" : ""} ${className}`}
-      {...rest}
-    >
+  const cls = `relative inline-flex shrink-0 cursor-pointer select-none items-center justify-center overflow-hidden border font-medium transition-colors duration-(--ui-duration) disabled:cursor-not-allowed disabled:opacity-60 ${shape} ${radius} ${skin} ${fluid ? "w-full" : ""} ${className}`;
+  const inner = (
+    <>
       {Icon && !iconRight ? <Icon size={iconSize} aria-hidden="true" /> : null}
       {content}
       {Icon && iconRight ? <Icon size={iconSize} aria-hidden="true" /> : null}
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link href={href} className={cls} aria-label={rest["aria-label"]}>
+        {inner}
+      </Link>
+    );
+  }
+
+  return (
+    <button type={type} className={cls} {...rest}>
+      {inner}
     </button>
   );
 }

@@ -244,3 +244,14 @@ Keine weiteren Variablen im MVP.
 - Die Portfolio-Prozente berücksichtigen Browser-Änderungen erst ab Schritt 5; im Editor sind sie schon live.
 - Für den Bestätigungsdialog gibt es kein Overlay-Token; der Hintergrund nutzt das Browser-Standard-Backdrop.
 - Abweichungen vom Design System wegen Kontrast: Warn-Meldung mit dunklem Text (yellow-110 nur fürs Icon), Feldfehler in red-110 statt pink.
+
+## Offen aus dem Design-Review (Schritt 4, 25.11.2026)
+
+Design Bible D verlangt ≥ 3:1 Kontrast für Ränder und Hintergründe von UI-Komponenten. Diese Werte kommen direkt aus `tokens.css` bzw. den Design-System-Vorlagen, gelten app-weit und entsprechen den Screenshots der echten App; sie sind deshalb nicht geändert, sondern brauchen eine Entscheidung:
+- Kartenrand `--ui-border` (surface-300) auf Weiß: 1,5:1
+- Trennlinien `--ui-border-hairline` auf Weiß: ca. 1,2:1 (Kopfzeile, Sidebar, Tabellen, Feldliste)
+- Rand des Outlined-Buttons (primary-200) auf Weiß: 1,8:1
+- Rand und Fläche von AppMessage „warn“ (yellow auf yellow-light bzw. Seite): 2,2:1 / 2,4:1
+- Spur des Fortschrittsbalkens (surface-200) auf Weiß: 1,3:1 (der Wert steht immer als Zahl daneben)
+- Innenabstände der Atome aus dem Design System (AppButton, AppTag, AppInput: horizontal ≠ vertikal) bleiben wie im Design System.
+- Berechtigungszustand (Design Bible J): Im Prototyp gibt es keine Anmeldung und keine Rechte (SPEC §2), daher kein Zustand „keine Berechtigung“.

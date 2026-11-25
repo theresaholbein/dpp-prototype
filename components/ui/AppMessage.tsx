@@ -3,7 +3,7 @@ import { CircleCheckBig, Info, OctagonAlert, TriangleAlert, type LucideIcon } fr
 
 /**
  * Port von AppMessage aus docs/design-system/components/AppCard.jsx.
- * Abweichungen: Rand statt Outline; Info-Hintergrund primary-50 statt halbtransparentem Wert (nur Tokens);
+ * Abweichungen: Rand statt Outline; Padding p-2 rundum (Design Bible E); Info-Hintergrund primary-50 statt halbtransparentem Wert (nur Tokens);
  * bei „warn“ dunkler Text und nur das Icon in yellow-110, weil yellow-110 auf yellow-light zu wenig Kontrast für Text hat.
  */
 export type MessageSeverity = "info" | "success" | "warn" | "error" | "secondary";
@@ -21,8 +21,8 @@ export type AppMessageProps = HTMLAttributes<HTMLDivElement> & { severity?: Mess
 export function AppMessage({ severity = "info", children, className = "", ...rest }: AppMessageProps) {
   const { skin, iconColor = "", icon: Icon } = tones[severity];
   return (
-    <div className={`flex items-start gap-2 rounded-ui-sm border px-3 py-2 ${skin} ${className}`} {...rest}>
-      <Icon size={18} aria-hidden="true" className={`mt-0.5 shrink-0 ${iconColor}`} />
+    <div className={`flex items-center gap-2 rounded-ui-sm border p-2 ${skin} ${className}`} {...rest}>
+      <Icon size={18} aria-hidden="true" className={`shrink-0 ${iconColor}`} />
       <span className="text-base">{children}</span>
     </div>
   );

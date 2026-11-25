@@ -2,7 +2,10 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
+import { Eye } from "lucide-react";
+import { SECTION_ICON } from "@/components/dpp/section-icons";
 import { AppCard } from "@/components/ui/AppCard";
+import { CardHeading } from "@/components/ui/CardHeading";
 import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import { sortBySection, type FieldMeta } from "@/lib/dpp/editor";
 import { formatValue } from "@/lib/dpp/format";
@@ -40,16 +43,18 @@ export function RolePreview({ pass, meta }: { pass: Passport; meta: Record<strin
       </div>
 
       <AppCard>
-        <h2 className="text-lg font-medium text-ui-text-strong">{role.title}</h2>
-        <p className="text-ui-text">{role.text}</p>
-        <p className="text-ui-text-muted" aria-live="polite">
-          {count}
-        </p>
-        <p className="text-sm text-ui-text-muted">Vorschau des Arbeitsstands. Öffentlich ist erst die veröffentlichte Version.</p>
+        <div className="flex flex-col gap-2">
+          <CardHeading icon={Eye}>{role.title}</CardHeading>
+          <p className="text-ui-text">{role.text}</p>
+          <p className="font-medium text-ui-text-strong" aria-live="polite">
+            {count}
+          </p>
+          <p className="text-sm text-ui-text-muted">Vorschau des Arbeitsstands. Öffentlich ist erst die veröffentlichte Version.</p>
+        </div>
       </AppCard>
 
       {groups.length === 0 ? (
-        <AppCard className="items-center p-8 text-center">
+        <AppCard padding="large" className="items-center text-center">
           <p className="text-ui-text-muted">Für diese Rolle sind keine Felder sichtbar.</p>
         </AppCard>
       ) : (
@@ -57,14 +62,14 @@ export function RolePreview({ pass, meta }: { pass: Passport; meta: Record<strin
           {groups.map((g) => (
             <AppCard key={g.id}>
               <section aria-labelledby={`sec-${g.id}`} className="flex flex-col gap-4">
-                <h3 id={`sec-${g.id}`} className="text-lg font-medium text-ui-text-strong">
+                <CardHeading id={`sec-${g.id}`} icon={SECTION_ICON[g.id]} level={3}>
                   {SECTION_LABEL[g.id]}
-                </h3>
+                </CardHeading>
                 <dl className="flex flex-col gap-4">
                   {g.fields.map((e) => {
                     const text = formatValue(e.value);
                     return (
-                      <div key={e.elementId} className="flex flex-col gap-1 border-t border-ui-border-hairline pt-4">
+                      <div key={e.elementId} className="flex flex-col">
                         <dt className="text-sm text-ui-text-muted">{meta[e.elementId].label}</dt>
                         <dd className={`break-words ${text === null ? "text-ui-text-muted" : "text-ui-text-strong"}`}>{text ?? "Keine Angabe"}</dd>
                       </div>

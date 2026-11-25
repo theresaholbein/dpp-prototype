@@ -43,7 +43,7 @@ function LoadingSkeleton() {
   return (
     <div role="status" aria-label="Editor wird geladen" className="grid gap-4 xl:grid-cols-[16rem_minmax(0,1fr)_20rem]">
       {[0, 1, 2].map((i) => (
-        <div key={i} className="h-96 animate-pulse rounded-ui-xl border border-ui-border bg-surface-100" />
+        <div key={i} className="h-96 motion-safe:animate-pulse rounded-ui-xl border border-ui-border bg-surface-100" />
       ))}
     </div>
   );

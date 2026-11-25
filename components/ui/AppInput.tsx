@@ -2,14 +2,15 @@ import type { InputHTMLAttributes, ReactNode, SelectHTMLAttributes } from "react
 
 /**
  * Port von docs/design-system/components/AppInput.jsx (AppInput, AppField), ohne Schatten (Design Bible D).
- * Fehlertext in red-110 statt pink (Kontrast für kleine Schrift).
+ * Abweichungen: Fehlertext in red-110 statt pink (Kontrast für kleine Schrift);
+ * Rand surface-500 statt surface-300 (1,5:1), Hover surface-600 (Design Bible D, ≥ 3:1).
  * AppSelect: natives Auswahlfeld im selben Stil (nicht im Design System).
  */
 const base =
-  "w-full rounded-ui-sm border bg-surface-0 px-3 py-2 text-base text-surface-700 outline-none transition-colors duration-(--ui-duration) hover:border-surface-400 focus:border-primary-500 disabled:bg-surface-200 disabled:text-surface-500";
+  "w-full rounded-ui-sm border bg-surface-0 px-3 py-2 text-base text-surface-700 outline-none transition-colors duration-(--ui-duration) hover:border-surface-600 focus:border-primary-500 disabled:bg-surface-200 disabled:text-surface-500";
 
 function border(invalid?: boolean) {
-  return invalid ? "border-pink-mid" : "border-surface-300";
+  return invalid ? "border-red-110" : "border-surface-500";
 }
 
 export function AppInput({ invalid, className = "", ...rest }: InputHTMLAttributes<HTMLInputElement> & { invalid?: boolean }) {
@@ -25,7 +26,7 @@ type FieldProps = { label: ReactNode; hint?: ReactNode; error?: ReactNode; htmlF
 /** Label über dem Feld, darunter Fehler (inline, Design Bible J) oder Hinweis. */
 export function AppField({ label, hint, error, htmlFor, hintId, children }: FieldProps) {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <label htmlFor={htmlFor} className="text-sm font-medium text-ui-text">
         {label}
       </label>

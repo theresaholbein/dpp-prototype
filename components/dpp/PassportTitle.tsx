@@ -12,7 +12,7 @@ export function PassportTitle({ pass }: { pass: Passport }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <h1 className="text-xl font-bold leading-tight text-ui-text-strong">{pass.productName}</h1>
+        <h1 className="break-words text-xl font-bold leading-tight text-ui-text-strong">{pass.productName}</h1>
         <div className="flex flex-wrap items-center gap-2 text-ui-text-muted">
           <span>
             {pass.sku} · {group.templateLabel} · Ebene {GRANULARITY_LABEL[pass.granularity]}

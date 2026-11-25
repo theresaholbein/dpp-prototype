@@ -31,7 +31,7 @@ export default async function RolePreviewPage({ params }: Props) {
       <AppHeader backHref="/products/passports" tabs={passportTabs(pass.id)} tabsLabel="Bereiche Produktpass" />
       <main className="flex flex-1 flex-col gap-8 p-8">
         <PassportTitle pass={pass} />
-        <Suspense fallback={<div role="status" aria-label="Vorschau wird geladen" className="h-96 animate-pulse rounded-ui-xl border border-ui-border bg-surface-100" />}>
+        <Suspense fallback={<div role="status" aria-label="Vorschau wird geladen" className="h-96 motion-safe:animate-pulse rounded-ui-xl border border-ui-border bg-surface-100" />}>
           <RolePreview pass={pass} meta={buildFieldMeta(pass)} />
         </Suspense>
       </main>
