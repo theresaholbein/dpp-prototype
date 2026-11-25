@@ -189,7 +189,7 @@ Verbindlich ist `docs/design-bible/DESIGN-BIBLE.md`. Die wichtigsten Punkte für
 
 | Name | Zweck | Secret |
 |---|---|---|
-| `NEXT_PUBLIC_BASE_URL` | Basis-URL für QR-Code und `digitalProductPassportId`, lokal `http://localhost:3000`, auf Vercel die Production-URL | nein |
+| `NEXT_PUBLIC_BASE_URL` | Basis-URL für QR-Code und `digitalProductPassportId`, lokal `http://localhost:3000`, auf Vercel die Production-URL `https://dpp-prototype-five.vercel.app` | nein |
 
 Keine weiteren Variablen im MVP.
 
