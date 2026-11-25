@@ -247,11 +247,9 @@ Keine weiteren Variablen im MVP.
 
 ## Offen aus dem Design-Review (Schritt 4, 25.11.2026)
 
-Design Bible D verlangt ≥ 3:1 Kontrast für Ränder und Hintergründe von UI-Komponenten. Diese Werte kommen direkt aus `tokens.css` bzw. den Design-System-Vorlagen, gelten app-weit und entsprechen den Screenshots der echten App; sie sind deshalb nicht geändert, sondern brauchen eine Entscheidung:
-- Kartenrand `--ui-border` (surface-300) auf Weiß: 1,5:1
-- Trennlinien `--ui-border-hairline` auf Weiß: ca. 1,2:1 (Kopfzeile, Sidebar, Tabellen, Feldliste)
-- Rand des Outlined-Buttons (primary-200) auf Weiß: 1,8:1
-- Rand und Fläche von AppMessage „warn“ (yellow auf yellow-light bzw. Seite): 2,2:1 / 2,4:1
+Design Bible D verlangt ≥ 3:1 Kontrast für Ränder und Hintergründe von UI-Komponenten.
+- Entschieden 25.11.2026 (Bible vor Design System): Alle Ränder app-weit auf surface-500 (4,8:1): Karten und Trennlinien (Mapping von `ui-border` und `ui-border-hairline` in `app/globals.css`, `tokens.css` bleibt unverändert), Outlined-Buttons (primary-500 bzw. surface-500), Rand der Warnmeldung. Weicht von den Screenshots der echten App ab; mit Design abstimmen, ob die Tokens im Design System angepasst werden.
+- Weiter offen: Flächen unter 3:1 – Kartenfläche Weiß auf Seitenhintergrund (1,05:1), sekundärer und tertiärer Button (surface-100 bzw. gray-btn auf Weiß), Fläche der Warnmeldung auf der Seite.
 - Spur des Fortschrittsbalkens (surface-200) auf Weiß: 1,3:1 (der Wert steht immer als Zahl daneben)
 - Innenabstände der Atome aus dem Design System (AppButton, AppTag, AppInput: horizontal ≠ vertikal) bleiben wie im Design System.
 - Berechtigungszustand (Design Bible J): Im Prototyp gibt es keine Anmeldung und keine Rechte (SPEC §2), daher kein Zustand „keine Berechtigung“.
