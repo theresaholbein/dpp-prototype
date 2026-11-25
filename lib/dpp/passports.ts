@@ -21,9 +21,17 @@ export function getPassportByDppId(dppId: string): Passport | undefined {
   return PASSPORTS.find((p) => p.dppId === dppId);
 }
 
+function baseUrl(): string {
+  return (process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+}
+
 export function passportUrl(dppId: string): string {
-  const base = (process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000").replace(/\/$/, "");
-  return `${base}/p/${dppId}`;
+  return `${baseUrl()}/p/${dppId}`;
+}
+
+/** Endpunkt der Lese-API (SPEC §7) für einen Pass. */
+export function passportApiUrl(dppId: string): string {
+  return `${baseUrl()}/api/v1/dpps/${dppId}`;
 }
 
 function text(value: ElementValue | null): string | null {

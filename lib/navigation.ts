@@ -112,10 +112,10 @@ export const NAVIGATION: NavSection[] = [
 
 export const NAV_ITEMS: NavItem[] = NAVIGATION.flatMap((s) => s.items);
 
-/** Kopfzeilen-Tabs des Moduls Produktpässe (SPEC §6.1). Registry & Export folgt in Schritt 7. */
+/** Kopfzeilen-Tabs des Moduls Produktpässe (SPEC §6.1, §6.5). */
 export const PASSPORT_TABS: HeaderTab[] = [
   { label: "Portfolio", href: "/products/passports" },
-  { label: "Registry & Export" },
+  { label: "Registry & Export", href: "/products/passports/registry" },
 ];
 
 /** Kopfzeilen-Tabs eines Passes (SPEC §6.2). Veröffentlichen und Versionen folgen in Schritt 5. */

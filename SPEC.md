@@ -264,3 +264,14 @@ Design Bible D verlangt ≥ 3:1 Kontrast für Ränder und Hintergründe von UI-K
 - Spur des Fortschrittsbalkens (surface-200) auf Weiß: 1,3:1 (der Wert steht immer als Zahl daneben)
 - Innenabstände der Atome aus dem Design System (AppButton, AppTag, AppInput: horizontal ≠ vertikal) bleiben wie im Design System.
 - Berechtigungszustand (Design Bible J): Im Prototyp gibt es keine Anmeldung und keine Rechte (SPEC §2), daher kein Zustand „keine Berechtigung“.
+
+## Entscheidungen und offene Punkte aus Schritt 6 und 7 (25.11.2026)
+
+Die Rückfragen zu Schritt 6/7 blieben unbeantwortet; umgesetzt sind diese Annahmen, mit dem Plan freigegeben:
+- Der Prototyp ist eine Demo, keine Vorlage für die Umsetzung (Entscheidung 25.11.2026).
+- Lese-API: nur JSON (XML/JSON-LD weiter §12). Nur Datenelemente der Ebene „Öffentlich“, ohne interne Angaben Quelle und Zustand. Nur Demo-Versionen, wie öffentliche Seite und QR. `ReadDataElement` adressiert über `elementId` (`templateId/key`); nicht öffentliche Elemente antworten 403, unbekannte 404. `ReadDPPIdsByProductIds` erwartet `{ "productIds": [...] }`, unbekannte Kennungen ergeben `dppId: null`. CORS offen für alle Ursprünge.
+- Registry-Export: In die Datei kommt die letzte Demo-Version; offene Änderungen und nur im Browser veröffentlichte Versionen nicht, mit Hinweis in der Tabelle.
+- Registry-Export: Fehlt die Kennung Wirtschaftsakteur (T-Shirt v3), wird der Pass trotzdem aufgenommen (`economicOperatorId: null`) und die Zeile warnt. Siehe offener Punkt aus Schritt 2.
+- Registry-Export: Reine Tabellenzeilen ohne Passdaten (Hoodie) ergeben den Fehler „Keine Passdaten im Prototyp“; keine erfundene Produktkennung.
+- Registry-Export: Eine Datei je Produktgruppe, Auswahl insgesamt höchstens 100.
+- 🔴 Wert von `schemaVersion` („demo-0.1“), Codes für `productGroup` („textile“, „furniture“) und die Namen der Item-Felder (`dppId`, `economicOperatorId`, `backupOperatorId`, `apiEndpoint`, `status`) sind Annahmen, nicht aus der Registry-Vorlage. `backupOperatorId` ist immer leer (Back-up nicht im MVP).
