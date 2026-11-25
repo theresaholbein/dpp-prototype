@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { AppButton } from "@/components/ui/AppButton";
+import { ResetDemoButton } from "@/components/dpp/ResetDemoButton";
 import { AppTag } from "@/components/ui/AppTag";
 import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import { Tooltip } from "@/components/ui/Tooltip";
@@ -60,6 +61,9 @@ export function PortfolioView({ rows }: { rows: PortfolioRow[] }) {
             )}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-end">
+        <ResetDemoButton />
       </div>
     </div>
   );

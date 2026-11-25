@@ -1,10 +1,11 @@
-import { FileText, GraduationCap, SquareCheckBig, StickyNote } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, FileText, GraduationCap, SquareCheckBig, StickyNote } from "lucide-react";
 import type { HeaderTab } from "@/lib/navigation";
 import { AppButton } from "@/components/ui/AppButton";
 import { Tooltip } from "@/components/ui/Tooltip";
 import { HeaderTabs } from "./HeaderTabs";
 
-/** Kopfzeile: links Tab-Gruppe, rechts vier Icon-Buttons ohne Funktion (SPEC §4). */
+/** Kopfzeile: links „Zurück“ (Detailseiten) und Tab-Gruppe, rechts vier Icon-Buttons ohne Funktion (SPEC §4, §6.2). */
 const TOOLS = [
   { label: "Aufgaben", icon: SquareCheckBig },
   { label: "Notizen", icon: StickyNote },
@@ -12,10 +13,23 @@ const TOOLS = [
   { label: "Lernen", icon: GraduationCap },
 ];
 
-export function AppHeader({ tabs, tabsLabel }: { tabs: HeaderTab[]; tabsLabel: string }) {
+type Props = { tabs: HeaderTab[]; tabsLabel: string; backHref?: string };
+
+export function AppHeader({ tabs, tabsLabel, backHref }: Props) {
   return (
     <header className="sticky top-0 z-10 flex h-(--ui-header-height) shrink-0 items-center justify-between gap-4 border-b border-ui-border-hairline bg-ui-surface px-4">
-      <HeaderTabs tabs={tabs} label={tabsLabel} />
+      <div className="flex min-w-0 items-center gap-4">
+        {backHref ? (
+          <Link
+            href={backHref}
+            className="inline-flex shrink-0 items-center gap-2 rounded-ui-sm bg-gray-btn px-3 py-2 font-medium text-gray-dark transition-colors duration-(--ui-duration) hover:text-blue"
+          >
+            <ArrowLeft size={20} aria-hidden="true" />
+            Zurück
+          </Link>
+        ) : null}
+        <HeaderTabs tabs={tabs} label={tabsLabel} />
+      </div>
       <div className="flex items-center gap-2">
         {TOOLS.map(({ label, icon }) => (
           <Tooltip key={label} label={label} placement="bottom-end">

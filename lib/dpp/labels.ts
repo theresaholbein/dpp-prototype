@@ -100,3 +100,17 @@ export const PRODUCT_GROUP_LABEL: Record<ProductGroup, string> = {
 /** SPEC §5: Hinweistext zur Vollständigkeit. */
 export const READINESS_HINT =
   "Pflicht laut Template, nicht rechtsverbindlich. Verbindliche Pflichtfelder legt erst der delegierte Rechtsakt fest.";
+
+/** Platzhalterseite des Quellmoduls für „In Quelle öffnen“ (Entscheidung 25.11.2026: PCF → Produkte). */
+export const SOURCE_HREF: Record<Exclude<SourceModule, "manual">, string> = {
+  products: "/products",
+  pcf: "/products",
+  supplier: "/supply-chain",
+};
+
+/** Pflegestelle bei fehlendem Wert (SPEC §5). Der DPP schreibt keine Fachdaten zurück. */
+export const SOURCE_MISSING_ACTION: Record<Exclude<SourceModule, "manual">, string> = {
+  products: "In Produkte ergänzen",
+  pcf: "In Produkte ergänzen",
+  supplier: "Bei Lieferant anfragen",
+};

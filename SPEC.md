@@ -236,3 +236,11 @@ Keine weiteren Variablen im MVP.
 - 🔴 PCF-Wert des T-Shirts in v1/v2 („4,8 kg CO2e je Stück“) ist erfunden, damit die v3-Notiz „PCF neu berechnet“ einen Vorgänger hat.
 - 🔴 Welche T-Shirt-Felder vom Modell geerbt werden (GTIN/Artikelnummer, Zolltarifnummer, Wirtschaftsakteur, Faserzusammensetzung, Pflegehinweise), ist ein Demo-Vorschlag, nicht belegt.
 - 🟡 Feldzuordnung und Pflicht-Einstufung der Templates (§5) sind eine interne Entscheidung, nicht von Legal geprüft.
+
+## Offen aus dem Bau (Schritt 4, 25.11.2026)
+
+- 🟡 „In Quelle öffnen“ führt bei PCF-Feldern auf „Produkte“ (Entscheidung 25.11.2026). In welchem Modul der PCF in der echten App liegt, ist offen.
+- Granularität ist nur ohne veröffentlichte Version bearbeitbar (Entscheidung 25.11.2026). Der Kopf (`granularity`) liest noch `pass.granularity`; ob eine geänderte Ebene beim Sessel in den Kopf übernommen wird, klären wir in Schritt 5.
+- Die Portfolio-Prozente berücksichtigen Browser-Änderungen erst ab Schritt 5; im Editor sind sie schon live.
+- Für den Bestätigungsdialog gibt es kein Overlay-Token; der Hintergrund nutzt das Browser-Standard-Backdrop.
+- Abweichungen vom Design System wegen Kontrast: Warn-Meldung mit dunklem Text (yellow-110 nur fürs Icon), Feldfehler in red-110 statt pink.

@@ -118,6 +118,17 @@ export const PASSPORT_TABS: HeaderTab[] = [
   { label: "Registry & Export" },
 ];
 
+/** Kopfzeilen-Tabs eines Passes (SPEC §6.2). Veröffentlichen und Versionen folgen in Schritt 5. */
+export function passportTabs(id: string): HeaderTab[] {
+  const base = `/products/passports/${id}`;
+  return [
+    { label: "Pass-Editor", href: base },
+    { label: "Rollen-Vorschau", href: `${base}/preview` },
+    { label: "Veröffentlichen" },
+    { label: "Versionen" },
+  ];
+}
+
 export function findNavItem(pathname: string): NavItem | undefined {
   return NAV_ITEMS.find((i) => i.href === pathname);
 }
