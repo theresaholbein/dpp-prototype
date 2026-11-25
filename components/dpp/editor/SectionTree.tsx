@@ -21,7 +21,7 @@ export function SectionTree({
 }) {
   return (
     <nav aria-label="Template-Abschnitte" className="flex flex-col gap-4 rounded-ui-xl border border-ui-border bg-ui-surface p-4">
-      <AppButton variant="primary" mode="text" size="small" icon={PanelLeftClose} label="Seitenleiste ausblenden" onClick={onHide} className="self-start" />
+      <AppButton id="section-tree-hide" variant="primary" mode="text" size="small" icon={PanelLeftClose} label="Seitenleiste ausblenden" onClick={onHide} className="self-start" />
       <ul className="flex flex-col">
         {entries.map((s) => {
           const on = s.id === active;

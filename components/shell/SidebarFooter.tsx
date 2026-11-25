@@ -48,7 +48,7 @@ export function SidebarFooter({ collapsed }: { collapsed: boolean }) {
           </div>
         ))}
       </dl>
-      <span className="pl-3 text-xs text-ui-text-label">Version: {DEMO_CONTEXT.appVersion}</span>
+      <span className="pl-3 text-xs text-ui-text-muted">Version: {DEMO_CONTEXT.appVersion}</span>
     </div>
   );
 }

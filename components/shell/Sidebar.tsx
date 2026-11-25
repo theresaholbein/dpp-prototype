@@ -76,7 +76,7 @@ export function Sidebar({ hasLogo }: { hasLogo: boolean }) {
         </Tooltip>
       </div>
 
-      <nav aria-label="Hauptnavigation" className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-2 py-8">
+      <nav aria-label="Hauptnavigation" className={`flex min-h-0 flex-1 flex-col overflow-y-auto px-2 py-8 ${collapsed ? "gap-2" : "gap-4"}`}>
         {NAVIGATION.map((section, i) => (
           <div key={section.title} className="flex flex-col gap-2">
             {collapsed && i > 0 ? <hr className="mx-2 border-ui-border" /> : null}

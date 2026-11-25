@@ -1,7 +1,7 @@
 "use client";
 
 import { GitCompareArrows, Send } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AppButton } from "@/components/ui/AppButton";
 import { AppCard } from "@/components/ui/AppCard";
 import { AppField, AppTextarea } from "@/components/ui/AppInput";
@@ -28,6 +28,11 @@ export function PublishView({ pass, meta, publicUrl }: { pass: Passport; meta: R
   const dialog = useRef<HTMLDialogElement>(null);
   const [note, setNote] = useState("");
   const [published, setPublished] = useState<number | null>(null);
+  // Nach dem Veröffentlichen ist der Button deaktiviert; Fokus auf die Erfolgsmeldung, damit er nicht verloren geht.
+  const successRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (published) successRef.current?.focus();
+  }, [published]);
 
   const next = nextVersionNumber(state.versions);
   const last = state.latest;
@@ -62,7 +67,7 @@ export function PublishView({ pass, meta, publicUrl }: { pass: Passport; meta: R
     <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_24rem]">
       <div className="flex flex-col gap-4">
         {published ? (
-          <AppMessage severity="success" role="status">
+          <AppMessage ref={successRef} tabIndex={-1} severity="success" role="status">
             {dbNote(published)}
           </AppMessage>
         ) : null}

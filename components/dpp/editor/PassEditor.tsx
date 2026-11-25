@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useToast } from "@/components/ui/Toast";
 import { sortBySection, type FieldMeta } from "@/lib/dpp/editor";
 import { SECTION_LABEL, SECTION_ORDER } from "@/lib/dpp/labels";
@@ -27,6 +27,17 @@ export function PassEditor({ pass, meta }: { pass: Passport; meta: Record<string
   const edits = useEdits(pass.id);
   const { showToast, toastRegion } = useToast();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  // Beim Aus-/Einblenden verschwindet der geklickte Button: Fokus auf den Gegen-Button setzen (Tastatur).
+  const toggled = useRef(false);
+  useEffect(() => {
+    if (!toggled.current) return;
+    toggled.current = false;
+    document.getElementById(sidebarOpen ? "section-tree-hide" : "section-tree-show")?.focus();
+  }, [sidebarOpen]);
+  const toggleSidebar = (open: boolean) => {
+    toggled.current = true;
+    setSidebarOpen(open);
+  };
 
   const elements = useMemo(() => sortBySection(applyEdits(pass.workingCopy.elements, edits), meta), [pass, edits, meta]);
   const readiness = useMemo(() => computeReadiness(elements, pass.templateIds), [elements, pass.templateIds]);
@@ -102,7 +113,7 @@ export function PassEditor({ pass, meta }: { pass: Passport; meta: Record<string
       }`}
     >
       {sidebarOpen ? (
-        <SectionTree entries={entries} active={section} onSelect={(id) => navigate({ section: id })} onHide={() => setSidebarOpen(false)} />
+        <SectionTree entries={entries} active={section} onSelect={(id) => navigate({ section: id })} onHide={() => toggleSidebar(false)} />
       ) : null}
       <FieldList
         title={section === "all" ? "Alle Felder" : SECTION_LABEL[section]}
@@ -112,7 +123,7 @@ export function PassEditor({ pass, meta }: { pass: Passport; meta: Record<string
         selectedId={selected?.elementId ?? null}
         editabilityOf={editabilityOf}
         sidebarHidden={!sidebarOpen}
-        onShowSidebar={() => setSidebarOpen(true)}
+        onShowSidebar={() => toggleSidebar(true)}
         onSelect={(id) => navigate({ field: id === selectedId ? null : id })}
         onSave={save}
         onPrev={onPrev}

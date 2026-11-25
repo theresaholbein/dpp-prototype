@@ -64,7 +64,7 @@ export function FieldList({
       <div className="flex items-center gap-2 border-b border-ui-border-hairline p-4">
         {sidebarHidden ? (
           <Tooltip label="Seitenleiste einblenden">
-            <AppButton variant="primary" mode="text" icon={PanelLeftOpen} aria-label="Seitenleiste einblenden" onClick={onShowSidebar} />
+            <AppButton id="section-tree-show" variant="primary" mode="text" icon={PanelLeftOpen} aria-label="Seitenleiste einblenden" onClick={onShowSidebar} />
           </Tooltip>
         ) : null}
         <CardHeading id="field-list-title" icon={ListTree}>

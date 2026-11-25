@@ -54,7 +54,7 @@ export default async function PublicPassportPage(props: Props) {
                   hrefLang={l}
                   lang={l}
                   aria-current={active ? "true" : undefined}
-                  aria-label={l === "de" ? "Deutsch" : "English"}
+                  aria-label={`${t.languages[l]} – ${l === "de" ? "Deutsch" : "English"}`}
                   className={`flex min-h-10 min-w-10 items-center justify-center rounded-ui-sm border px-2 text-sm font-medium ${
                     active ? "border-primary-500 bg-ui-surface-selected text-primary-500" : "border-transparent text-gray-dark hover:bg-surface-100"
                   }`}
@@ -160,7 +160,7 @@ export default async function PublicPassportPage(props: Props) {
       </main>
 
       <footer className="border-t border-ui-border-hairline bg-ui-surface">
-        <div className="mx-auto flex w-full max-w-xl flex-col gap-1 px-4 py-4 text-sm text-ui-text-muted">
+        <div className="mx-auto flex w-full max-w-xl flex-col gap-1 p-4 text-sm text-ui-text-muted">
           {/* Label und Wert fließen als Text: lange Werte brechen in derselben Zeile um, statt als Block unter das Label zu rutschen. */}
           <dl className="flex flex-col gap-1">
             <div>

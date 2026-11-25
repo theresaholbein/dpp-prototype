@@ -64,7 +64,9 @@ export function PortfolioView({ rows: serverRows, passports }: { rows: Portfolio
       <div className="flex flex-col gap-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <SegmentedControl label="Produktgruppe" options={FILTERS} value={group} onChange={setGroup} />
-          <AppButton label="Pass anlegen" icon={Plus} />
+          <Tooltip label="Im Prototyp ohne Funktion" placement="bottom-end" describe>
+            <AppButton label="Pass anlegen" icon={Plus} />
+          </Tooltip>
         </div>
 
         <div className="overflow-x-auto rounded-ui-xl border border-ui-border bg-ui-surface">

@@ -67,7 +67,7 @@ export function SidebarItem({ label, href, icon: Icon, active = false, locked = 
 export function SidebarSection({ title, collapsed = false, children }: { title: string; collapsed?: boolean; children: ReactNode }) {
   return (
     <div role="group" aria-label={title} className="flex w-full flex-col gap-1">
-      {collapsed ? null : <span className="mt-2 pl-3 text-xs font-medium text-gray-light">{title}</span>}
+      {collapsed ? null : <span className="pl-3 text-xs font-medium text-ui-text-muted">{title}</span>}
       {children}
     </div>
   );

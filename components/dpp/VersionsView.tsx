@@ -70,7 +70,7 @@ export function VersionsView({ pass, meta }: { pass: Passport; meta: Record<stri
                       {!demoVersions.has(v.version) ? <AppTag value="Nur in diesem Browser" severity="secondary" /> : null}
                     </div>
                     {v.note ? <p className="text-ui-text">{v.note}</p> : null}
-                    <p className="text-sm text-ui-text-muted">
+                    <p className={`text-sm ${active ? "text-ui-text" : "text-ui-text-muted"}`}>
                       {v.previousVersion === null
                         ? "Erste Version"
                         : v.changedFields.length === 0
@@ -118,6 +118,7 @@ function PublicFields({ version, meta }: { version: PassVersion; meta: Record<st
   return (
     <div className="flex flex-col gap-2">
       <span className="text-sm font-medium text-ui-text">Öffentliche Felder in v{version.version}</span>
+      {visible.length === 0 ? <p className="text-sm text-ui-text-muted">Diese Version hat keine öffentlichen Felder.</p> : null}
       <dl className="flex flex-col gap-2">
         {visible.map((e) => {
           const text = formatValue(e.value);

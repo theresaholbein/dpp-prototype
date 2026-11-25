@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode, Ref } from "react";
 import { CircleCheckBig, Info, OctagonAlert, TriangleAlert, type LucideIcon } from "lucide-react";
 
 /**
@@ -16,7 +16,7 @@ const tones: Record<MessageSeverity, { skin: string; iconColor?: string; icon: L
   secondary: { skin: "bg-surface-100 border-surface-500 text-surface-600", icon: Info },
 };
 
-export type AppMessageProps = HTMLAttributes<HTMLDivElement> & { severity?: MessageSeverity; children: ReactNode };
+export type AppMessageProps = HTMLAttributes<HTMLDivElement> & { severity?: MessageSeverity; children: ReactNode; ref?: Ref<HTMLDivElement> };
 
 export function AppMessage({ severity = "info", children, className = "", ...rest }: AppMessageProps) {
   const { skin, iconColor = "", icon: Icon } = tones[severity];
