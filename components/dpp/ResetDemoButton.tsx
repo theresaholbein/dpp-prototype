@@ -10,13 +10,16 @@ import { resetDemo } from "@/lib/dpp/use-working-copy";
  * „Demo zurücksetzen“ (Entscheidung 25.11.2026): verwirft alle Browser-Daten der Demo.
  * Folgenreich, daher Bestätigung mit konkretem Text (Design Bible I). Nativer <dialog>: Fokus und Escape vom Browser.
  */
-export function ResetDemoButton() {
+export function ResetDemoButton({ onReset }: { onReset?: () => void } = {}) {
   const dialog = useRef<HTMLDialogElement>(null);
   const { showToast, toastRegion } = useToast();
 
   const confirm = () => {
     dialog.current?.close();
-    if (resetDemo()) showToast("Demo zurückgesetzt");
+    if (resetDemo()) {
+      showToast("Demo zurückgesetzt");
+      onReset?.();
+    }
     else showToast("Zurücksetzen nicht möglich: Der Browser erlaubt keinen Zugriff auf den lokalen Speicher.", "error");
   };
 
